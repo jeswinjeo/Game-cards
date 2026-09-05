@@ -2,345 +2,553 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- IMPORTANT FOR MOBILE -->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
 <title>Character Cards</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: #050505;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px 12px 40px;
+}
+
+/* TITLE */
+h1 {
+    text-align: center;
+    font-size: clamp(28px, 8vw, 48px);
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+}
+
+/* CARD CONTAINER */
+.cards-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+}
+
+/* CARD */
+.card {
+    width: 100%;
+    background:
+        linear-gradient(145deg, #1b1b1b, #090909);
+
+    border: 1px solid #333;
+    border-radius: 20px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.7);
+
+    overflow: hidden;
+
+    transition: transform .25s ease,
+                border-color .25s ease;
+}
+
+.card:active {
+    transform: scale(.98);
+}
+
+.card:hover {
+    border-color: #777;
+}
+
+/* NAME */
+.name {
+    font-size: clamp(24px, 7vw, 32px);
+    font-weight: 900;
+}
+
+.nickname {
+    color: #999;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+/* RANK */
+.rank {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 18px;
+}
+
+.sss {
+    background: linear-gradient(90deg,#ffb300,#ff3d00);
+}
+
+.ss {
+    background: linear-gradient(90deg,#8e24aa,#3949ab);
+}
+
+.s {
+    background: #b71c1c;
+}
+
+.basic {
+    background: #444;
+}
+
+.unknown {
+    background: linear-gradient(90deg,#111,#444);
+}
+
+/* STATS */
+.stat {
+    margin-bottom: 14px;
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 13px;
+
+    margin-bottom: 6px;
+}
+
+.bar {
+    width: 100%;
+    height: 7px;
+
+    background: #292929;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #666666
+    );
+
+    border-radius: 10px;
+}
+
+/* TOTAL */
+.total {
+    margin-top: 20px;
+    padding-top: 15px;
+
+    border-top: 1px solid #333;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* SPECIAL */
+.special {
+    margin-top: 12px;
+
+    color: #aaa;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (min-width: 600px) {
 
     body {
-        font-family: Arial, sans-serif;
-        background: #080808;
-        color: white;
-        padding: 30px 15px;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 42px;
-        margin-bottom: 35px;
-        letter-spacing: 3px;
+        padding: 30px;
     }
 
     .cards-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        max-width: 1200px;
-        margin: auto;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
     }
+}
 
-    .card {
-        position: relative;
-        background: linear-gradient(145deg, #171717, #0d0d0d);
-        border: 1px solid #333;
-        border-radius: 20px;
-        padding: 25px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,.5);
-        transition: .3s;
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+@media (min-width: 950px) {
+
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
     }
 
     .card:hover {
-        transform: translateY(-8px) scale(1.02);
-        border-color: #777;
+        transform: translateY(-8px);
+    }
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+   ========================= */
+
+@media (max-width: 360px) {
+
+    body {
+        padding: 15px 9px 30px;
     }
 
-    .card::before {
-        content: "";
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        background: rgba(255,255,255,.04);
-        border-radius: 50%;
-        top: -80px;
-        right: -70px;
+    .card {
+        padding: 18px;
+        border-radius: 16px;
     }
 
     .name {
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .nickname {
-        color: #aaa;
-        margin-bottom: 18px;
+        font-size: 23px;
     }
 
     .rank {
-        display: inline-block;
-        padding: 7px 15px;
-        border-radius: 10px;
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        background: #222;
-        border: 1px solid #555;
-    }
-
-    .rank.sss {
-        background: linear-gradient(90deg, #ffb300, #ff3d00);
-        color: white;
-        border: none;
-    }
-
-    .rank.ss {
-        background: linear-gradient(90deg, #8e24aa, #3949ab);
-        border: none;
-    }
-
-    .rank.s {
-        background: #b71c1c;
-        border: none;
-    }
-
-    .rank.basic {
-        background: #424242;
-    }
-
-    .rank.unknown {
-        background: linear-gradient(90deg, #111, #333);
-        color: #fff;
-    }
-
-    .stats {
-        margin-top: 10px;
-    }
-
-    .stat {
-        margin: 13px 0;
+        font-size: 12px;
+        padding: 6px 10px;
     }
 
     .stat-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-        font-size: 14px;
+        font-size: 12px;
     }
+}
 
-    .bar {
-        width: 100%;
-        height: 8px;
-        background: #292929;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .fill {
-        height: 100%;
-        border-radius: 10px;
-        background: linear-gradient(90deg, #eee, #777);
-    }
-
-    .total {
-        margin-top: 22px;
-        padding-top: 15px;
-        border-top: 1px solid #333;
-        display: flex;
-        justify-content: space-between;
-        font-size: 19px;
-        font-weight: bold;
-    }
-
-    .special {
-        margin-top: 15px;
-        color: #bbb;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-    .unknown .stat-header span:last-child {
-        color: #aaa;
-    }
-
-    @media(max-width:500px) {
-        h1 {
-            font-size: 32px;
-        }
-
-        .card {
-            padding: 20px;
-        }
-    }
 </style>
 </head>
+
 
 <body>
 
 <h1>CHARACTER CARDS</h1>
 
+
 <div class="cards-container">
 
-    <!-- ACHAYAN -->
-    <div class="card">
-        <div class="name">ACHAYAN</div>
-        <div class="nickname">The Peak</div>
 
-        <div class="rank sss">SSS RANK</div>
+<!-- ================= ACHAYAN ================= -->
 
-        <div class="stats">
+<div class="card">
 
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Strength</span><span>98</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:98%"></div></div>
-            </div>
+    <div class="name">ACHAYAN</div>
 
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Speed</span><span>96</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:96%"></div></div>
-            </div>
+    <div class="nickname">
+        The Peak
+    </div>
 
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Agility</span><span>94</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:94%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Durability</span><span>99</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:99%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>IQ</span><span>92</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:92%"></div></div>
-            </div>
-
-        </div>
-
-        <div class="total">
-            <span>Total Points</span>
-            <span>479</span>
-        </div>
-
-        <div class="special">
-            Special: Peak Strength
-        </div>
+    <div class="rank sss">
+        SSS RANK
     </div>
 
 
-    <!-- ASWIN -->
-    <div class="card">
-        <div class="name">ASWIN SINU</div>
-        <div class="nickname">The Watcher</div>
+    <div class="stat">
 
-        <div class="rank basic">BASIC RANK</div>
-
-        <div class="stats">
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Strength</span><span>70</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:70%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Speed</span><span>65</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:65%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Agility</span><span>55</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:55%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Durability</span><span>68</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:68%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>IQ</span><span>75</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:75%"></div></div>
-            </div>
-
+        <div class="stat-header">
+            <span>Strength</span>
+            <span>98</span>
         </div>
 
-        <div class="total">
-            <span>Total Points</span>
-            <span>333</span>
+        <div class="bar">
+            <div class="fill" style="width:98%"></div>
         </div>
+
     </div>
 
 
-    <!-- JJ -->
-    <div class="card unknown">
-        <div class="name">JESWIN JEO</div>
-        <div class="nickname">JJ</div>
+    <div class="stat">
 
-        <div class="rank unknown">UNKNOWN RANK</div>
-
-        <div class="stats">
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Strength</span><span>???</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:100%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Speed</span><span>???</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:100%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Agility</span><span>???</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:100%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>Durability</span><span>???</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:100%"></div></div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-header">
-                    <span>IQ</span><span>???</span>
-                </div>
-                <div class="bar"><div class="fill" style="width:100%"></div></div>
-            </div>
-
+        <div class="stat-header">
+            <span>Speed</span>
+            <span>96</span>
         </div>
 
-        <div class="total">
-            <span>Total Points</span>
+        <div class="bar">
+            <div class="fill" style="width:96%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Agility</span>
+            <span>94</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:94%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Durability</span>
+            <span>99</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:99%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>IQ</span>
+            <span>92</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:92%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="total">
+        <span>Total Points</span>
+        <span>479</span>
+    </div>
+
+
+    <div class="special">
+        Special: Peak Strength
+    </div>
+
+</div>
+
+
+
+<!-- ================= ASWIN ================= -->
+
+<div class="card">
+
+    <div class="name">
+        ASWIN SINU
+    </div>
+
+    <div class="nickname">
+        The Watcher
+    </div>
+
+    <div class="rank basic">
+        BASIC RANK
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Strength</span>
+            <span>70</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:70%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Speed</span>
+            <span>65</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:65%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Agility</span>
+            <span>55</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:55%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Durability</span>
+            <span>68</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:68%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>IQ</span>
+            <span>75</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:75%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="total">
+        <span>Total Points</span>
+        <span>333</span>
+    </div>
+
+</div>
+
+
+
+<!-- ================= JESWIN ================= -->
+
+<div class="card">
+
+    <div class="name">
+        JESWIN JEO
+    </div>
+
+    <div class="nickname">
+        JJ
+    </div>
+
+    <div class="rank unknown">
+        UNKNOWN RANK
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Strength</span>
             <span>???</span>
         </div>
 
-        <div class="special">
-            Special: Data unavailable
+        <div class="bar">
+            <div class="fill" style="width:100%"></div>
         </div>
+
     </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Speed</span>
+            <span>???</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:100%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Agility</span>
+            <span>???</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:100%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>Durability</span>
+            <span>???</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:100%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-header">
+            <span>IQ</span>
+            <span>???</span>
+        </div>
+
+        <div class="bar">
+            <div class="fill" style="width:100%"></div>
+        </div>
+
+    </div>
+
+
+    <div class="total">
+        <span>Total Points</span>
+        <span>???</span>
+    </div>
+
+
+    <div class="special">
+        Special: Data unavailable
+    </div>
+
+</div>
+
 
 </div>
 
