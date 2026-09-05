@@ -1,99 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Cards</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            background: #111;
-            color: white;
-            font-family: Arial;
-            margin: 0;
-            padding: 20px;
-        }
+<title>Character Cards</title>
 
-        h1 {
-            text-align: center;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        .cards {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 500px;
-            margin: auto;
-        }
+body {
+    margin: 0;
+    padding: 20px 12px 40px;
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+}
 
-        .card {
-            background: #222;
-            border: 2px solid #555;
-            border-radius: 15px;
-            padding: 20px;
-        }
+h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
 
-        .name {
-            font-size: 28px;
-            font-weight: bold;
-        }
+.cards {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+}
 
-        .nickname {
-            color: #aaa;
-            margin: 5px 0 15px;
-        }
+.card {
+    background: linear-gradient(145deg, #202020, #0b0b0b);
+    border: 1px solid #444;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px #000;
+    transition: .3s;
+}
 
-        .rank {
-            display: inline-block;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+.card:hover {
+    transform: translateY(-5px);
+}
 
-        .sss {
-            background: orange;
-        }
+.photo {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    display: block;
+    background: #151515;
+}
 
-        .basic {
-            background: #555;
-        }
+.content {
+    padding: 20px;
+}
 
-        .unknown {
-            background: #000;
-            border: 1px solid white;
-        }
+.name {
+    font-size: 28px;
+    font-weight: bold;
+}
 
-        .stat {
-            margin: 15px 0;
-        }
+.nickname {
+    color: #999;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
 
-        .stat-name {
-            display: flex;
-            justify-content: space-between;
-        }
+.rank {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
-        .bar {
-            height: 10px;
-            background: #444;
-            margin-top: 5px;
-            border-radius: 10px;
-        }
+.sss {
+    background: linear-gradient(90deg, #ffb300, #ff3d00);
+}
 
-        .fill {
-            height: 100%;
-            background: white;
-            border-radius: 10px;
-        }
+.ss {
+    background: linear-gradient(90deg, #9c27b0, #3949ab);
+}
 
-        .total {
-            border-top: 1px solid #555;
-            margin-top: 20px;
-            padding-top: 15px;
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-        }
-    </style>
+.s {
+    background: #d32f2f;
+}
+
+.basic {
+    background: #555;
+}
+
+.unknown {
+    background: #000;
+    border: 1px solid white;
+}
+
+.stat {
+    margin-bottom: 15px;
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.bar {
+    width: 100%;
+    height: 8px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, white, #777);
+    border-radius: 10px;
+}
+
+.special {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    color: #bbb;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.special strong {
+    color: white;
+}
+
+@media (min-width: 600px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 950px) {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .photo {
+        height: 360px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -102,22 +162,25 @@
 
 <div class="cards">
 
-    <!-- ACHAYAN -->
 
-    <div class="card">
+<!-- =====================================================
+     ACHAYAN
+===================================================== -->
+
+<div class="card">
+
+    <img class="photo" src="achayan.jpg" alt="Achayan">
+
+    <div class="content">
 
         <div class="name">ACHAYAN</div>
 
-        <div class="nickname">
-            The Peak
-        </div>
+        <div class="nickname">The Peak</div>
 
-        <div class="rank sss">
-            SSS RANK
-        </div>
+        <div class="rank sss">SSS RANK</div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Strength</span>
                 <span>98</span>
             </div>
@@ -127,7 +190,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Speed</span>
                 <span>96</span>
             </div>
@@ -137,7 +200,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Agility</span>
                 <span>94</span>
             </div>
@@ -147,7 +210,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Durability</span>
                 <span>99</span>
             </div>
@@ -157,7 +220,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>IQ</span>
                 <span>92</span>
             </div>
@@ -166,30 +229,33 @@
             </div>
         </div>
 
-        <div class="total">
-            <span>Total Points</span>
-            <span>479</span>
+        <div class="special">
+            <strong>Special:</strong> Peak Strength
         </div>
 
     </div>
+</div>
 
 
-    <!-- ASWIN -->
+<!-- =====================================================
+     ASWIN SINU
+===================================================== -->
 
-    <div class="card">
+<div class="card">
+
+    <!-- Add your Aswin photo as: aswin.jpg -->
+    <img class="photo" src="aswin.jpg" alt="Aswin Sinu">
+
+    <div class="content">
 
         <div class="name">ASWIN SINU</div>
 
-        <div class="nickname">
-            The Watcher
-        </div>
+        <div class="nickname">The Watcher</div>
 
-        <div class="rank basic">
-            BASIC RANK
-        </div>
+        <div class="rank basic">BASIC RANK</div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Strength</span>
                 <span>70</span>
             </div>
@@ -199,7 +265,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Speed</span>
                 <span>65</span>
             </div>
@@ -209,7 +275,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Agility</span>
                 <span>55</span>
             </div>
@@ -219,7 +285,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Durability</span>
                 <span>68</span>
             </div>
@@ -229,7 +295,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>IQ</span>
                 <span>75</span>
             </div>
@@ -238,30 +304,28 @@
             </div>
         </div>
 
-        <div class="total">
-            <span>Total Points</span>
-            <span>333</span>
-        </div>
-
     </div>
+</div>
 
 
-    <!-- JESWIN -->
+<!-- =====================================================
+     JESWIN JEO
+===================================================== -->
 
-    <div class="card">
+<div class="card">
+
+    <img class="photo" src="jeswin.jpg" alt="Jeswin Jeo">
+
+    <div class="content">
 
         <div class="name">JESWIN JEO</div>
 
-        <div class="nickname">
-            JJ
-        </div>
+        <div class="nickname">JJ</div>
 
-        <div class="rank unknown">
-            UNKNOWN RANK
-        </div>
+        <div class="rank unknown">UNKNOWN RANK</div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Strength</span>
                 <span>???</span>
             </div>
@@ -271,7 +335,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Speed</span>
                 <span>???</span>
             </div>
@@ -281,7 +345,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Agility</span>
                 <span>???</span>
             </div>
@@ -291,7 +355,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>Durability</span>
                 <span>???</span>
             </div>
@@ -301,7 +365,7 @@
         </div>
 
         <div class="stat">
-            <div class="stat-name">
+            <div class="stat-top">
                 <span>IQ</span>
                 <span>???</span>
             </div>
@@ -310,12 +374,165 @@
             </div>
         </div>
 
-        <div class="total">
-            <span>Total Points</span>
-            <span>???</span>
+        <div class="special">
+            <strong>Special:</strong> Data unavailable
         </div>
 
     </div>
+</div>
+
+
+<!-- =====================================================
+     ROHIT
+===================================================== -->
+
+<div class="card">
+
+    <!-- Add Rohit's photo as: rohit.jpg -->
+    <img class="photo" src="rohit.jpg" alt="Rohit">
+
+    <div class="content">
+
+        <div class="name">ROHIT</div>
+
+        <div class="nickname">Nickname</div>
+
+        <!-- Change rank when needed -->
+        <div class="rank s">S RANK</div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Strength</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Speed</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Agility</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Durability</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>IQ</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="special">
+            <strong>Special:</strong> Add ability
+        </div>
+
+    </div>
+</div>
+
+
+<!-- =====================================================
+     NIVЕD
+===================================================== -->
+
+<div class="card">
+
+    <!-- Add Nived's photo as: nived.jpg -->
+    <img class="photo" src="nived.jpg" alt="Nived">
+
+    <div class="content">
+
+        <div class="name">NIVED</div>
+
+        <div class="nickname">Nickname</div>
+
+        <!-- Change rank when needed -->
+        <div class="rank s">S RANK</div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Strength</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Speed</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Agility</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>Durability</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-top">
+                <span>IQ</span>
+                <span>80</span>
+            </div>
+            <div class="bar">
+                <div class="fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="special">
+            <strong>Special:</strong> Add ability
+        </div>
+
+    </div>
+</div>
+
 
 </div>
 
