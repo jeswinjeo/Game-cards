@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACHAYAN — The Last Period</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: #080808;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .game {
+        width: 100%;
+        max-width: 650px;
+        background: #111;
+        border: 1px solid #333;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 0 30px rgba(255,255,255,0.05);
+    }
+
+    .top {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .top img {
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #777;
+    }
+
+    h1 {
+        margin: 15px 0 5px;
+        font-size: 30px;
+    }
+
+    .nickname {
+        color: #aaa;
+        font-size: 16px;
+    }
+
+    .part {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    h2 {
+        font-size: 25px;
+        margin-top: 5px;
+    }
+
+    .story {
+        color: #ddd;
+        font-size: 17px;
+        line-height: 1.7;
+        margin: 20px 0;
+    }
+
+    .choices {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    button {
+        width: 100%;
+        padding: 16px;
+        border-radius: 10px;
+        border: 1px solid #444;
+        background: #1b1b1b;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #292929;
+        border-color: #777;
+    }
+
+    .death {
+        text-align: center;
+    }
+
+    .death h2 {
+        color: #ff4444;
+        font-size: 32px;
+    }
+
+    .death p {
+        color: #ccc;
+        line-height: 1.7;
+    }
+
+    .cause {
+        margin-top: 15px;
+        padding: 12px;
+        border: 1px solid #522;
+        border-radius: 10px;
+        color: #ff8888;
+    }
+
+    .ending {
+        text-align: center;
+    }
+
+    .ending h2 {
+        font-size: 32px;
+    }
+
+    .ending p {
+        color: #ddd;
+        line-height: 1.8;
+    }
+
+    .small-btn {
+        margin-top: 12px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="game" id="game"></div>
+
+<script>
+
+const parts = [
+
+{
+    title: "THE MESSAGE",
+    text: `It is 7:00 PM.
+
+The college is almost completely empty.
+
+ACHAYAN — ELDOW ROSHAN — receives a message from an unknown number.
+
+"ROOM 13. COME ALONE."
+
+He looks at the old college block.
+
+Something feels wrong.`,
+
+    choices: [
+        {
+            text: "Go to the old building",
+            death: "ACHAYAN enters the old building. The door suddenly locks behind him. Something moves in the darkness and attacks him before he can escape.",
+            cause: "Cause of death: Severe head trauma."
+        },
+        {
+            text: "Go to Room 13",
+            next: 1
+        },
+        {
+            text: "Call the unknown number",
+            death: "A distorted voice answers. ACHAYAN becomes distracted while crossing the road. A speeding vehicle appears from nowhere.",
+            cause: "Cause of death: Fatal collision."
+        }
+    ]
+},
+
+{
+    title: "THE LOCKED DOOR",
+    text: `ACHAYAN reaches Room 13.
+
+The door is locked.
+
+There is no keyhole.
+
+Only a strange symbol is carved into the metal.
+
+He notices something moving behind the walls.`,
+
+    choices: [
+        {
+            text: "Kick the door",
+            death: "ACHAYAN kicks the door. A hidden mechanism activates and heavy metal equipment falls from above.",
+            cause: "Cause of death: Crushing injuries."
+        },
+        {
+            text: "Search another entrance",
+            death: "ACHAYAN finds an abandoned staircase. The rotten structure collapses beneath him.",
+            cause: "Cause of death: Fatal fall."
+        },
+        {
+            text: "Look carefully for a hidden mechanism",
+            next: 2
+        }
+    ]
+},
+
+{
+    title: "THE BAR",
+    text: `ACHAYAN finds a hidden switch.
+
+The door opens.
+
+Inside is a small room with one table.
+
+On the table sits a single bottle of beer.
+
+Beside it is a photograph of Room 13.`,
+
+    choices: [
+        {
+            text: "Drink the beer",
+            death: "ACHAYAN drinks the mysterious beer. His vision fades. The room seals itself completely.",
+            cause: "Cause of death: Poisoning."
+        },
+        {
+            text: "Throw the bottle away",
+            death: "The bottle shatters. A strange smell fills the room. Something wakes up behind ACHAYAN.",
+            cause: "Cause of death: Attack by an unknown entity."
+        },
+        {
+            text: "Leave the beer untouched and search",
+            next: 3
+        }
+    ]
+},
+
+{
+    title: "THE CHASE",
+    text: `The lights suddenly turn off.
+
+A creature begins moving through the corridor.
+
+ACHAYAN hears footsteps getting closer.
+
+He has only seconds to decide.`,
+
+    choices: [
+        {
+            text: "Run",
+            death: "ACHAYAN runs as fast as he can, but the creature is faster. His lack of agility allows it to catch him.",
+            cause: "Cause of death: Severe physical trauma."
+        },
+        {
+            text: "Hide",
+            death: "ACHAYAN hides inside a storage room, but there is no exit. The creature finds him.",
+            cause: "Cause of death: Fatal attack."
+        },
+        {
+            text: "Stand and fight",
+            next: 4
+        }
+    ]
+},
+
+{
+    title: "THE PHOTOGRAPH",
+    text: `ACHAYAN defeats the creature.
+
+It disappears.
+
+On the floor is the photograph from the room.
+
+But now there is a face in the photograph.
+
+The face looks exactly like ACHAYAN.`,
+
+    choices: [
+        {
+            text: "Burn the photograph",
+            death: "The photograph catches fire. Instead of burning away, the supernatural flames spread through the room.",
+            cause: "Cause of death: Severe burns."
+        },
+        {
+            text: "Tear the photograph",
+            death: "ACHAYAN tears the photograph. A scratched-out face suddenly appears and attacks him.",
+            cause: "Cause of death: Fatal supernatural attack."
+        },
+        {
+            text: "Study the photograph carefully",
+            next: 5
+        }
+    ]
+},
+
+{
+    title: "THE CLUE",
+    text: `ACHAYAN notices a tiny symbol hidden behind the photograph.
+
+It points toward a red door.
+
+From somewhere inside the building, a strange voice whispers:
+
+"Come back..."`,
+
+    choices: [
+        {
+            text: "Follow the strange voice",
+            death: "ACHAYAN follows the voice and enters a room that repeats endlessly. Every door leads back to the same place.",
+            cause: "Cause of death: Permanent entrapment."
+        },
+        {
+            text: "Open the red door",
+            death: "The red door opens into complete darkness. Something pulls ACHAYAN inside.",
+            cause: "Cause of death: Fatal supernatural attack."
+        },
+        {
+            text: "Follow the photograph clue",
+            next: 6
+        }
+    ]
+},
+
+{
+    title: "THE LOOP",
+    text: `ACHAYAN returns to Room 13.
+
+The photograph is hanging exactly where he found it.
+
+The building begins shaking.
+
+He realizes the entire place is trapped in a loop.
+
+There is only one way to break it.`,
+
+    choices: [
+        {
+            text: "Destroy the original photograph",
+            death: "The moment ACHAYAN destroys the photograph, the loop closes permanently around him.",
+            cause: "Cause of death: Permanent supernatural entrapment."
+        },
+        {
+            text: "Stay inside",
+            death: "ACHAYAN refuses to leave. Room 13 slowly seals itself around him.",
+            cause: "Cause of death: Permanent entrapment."
+        },
+        {
+            text: "Return the photograph to its original place",
+            ending: true
+        }
+    ]
+}
+
+];
+
+
+let currentPart = 0;
+
+
+function showPart() {
+
+    const part = parts[currentPart];
+
+    document.getElementById("game").innerHTML = `
+
+        <div class="top">
+            <img src="achayan.jpg" alt="ACHAYAN">
+
+            <h1>ACHAYAN</h1>
+
+            <div class="nickname">
+                ELDOW ROSHAN
+            </div>
+        </div>
+
+        <div class="part">
+            Part ${currentPart + 1} / ${parts.length}
+        </div>
+
+        <h2>${part.title}</h2>
+
+        <div class="story">
+            ${part.text.replace(/\n/g, "<br>")}
+        </div>
+
+        <div class="choices">
+            ${part.choices.map((choice, index) => `
+                <button onclick="choose(${index})">
+                    ${index + 1}. ${choice.text}
+                </button>
+            `).join("")}
+        </div>
+
+        <button class="small-btn" onclick="goHome()">
+            ← Character Select
+        </button>
+    `;
+}
+
+
+function choose(index) {
+
+    const choice = parts[currentPart].choices[index];
+
+    if (choice.death) {
+        showDeath(choice.death, choice.cause);
+        return;
+    }
+
+    if (choice.ending) {
+        showEnding();
+        return;
+    }
+
+    currentPart = choice.next;
+    showPart();
+}
+
+
+function showDeath(message, cause) {
+
+    document.getElementById("game").innerHTML = `
+
+        <div class="death">
+
+            <div class="top">
+                <img src="achayan.jpg" alt="ACHAYAN">
+
+                <h1>ACHAYAN</h1>
+
+                <div class="nickname">
+                    ELDOW ROSHAN
+                </div>
+            </div>
+
+            <h2>☠ YOU DIED</h2>
+
+            <p>
+                ${message}
+            </p>
+
+            <div class="cause">
+                ${cause}
+            </div>
+
+            <button onclick="restart()">
+                ↻ Restart Story
+            </button>
+
+            <button class="small-btn" onclick="goHome()">
+                ← Character Select
+            </button>
+
+        </div>
+    `;
+}
+
+
+function showEnding() {
+
+    document.getElementById("game").innerHTML = `
+
+        <div class="ending">
+
+            <div class="top">
+                <img src="achayan.jpg" alt="ACHAYAN">
+
+                <h1>ACHAYAN</h1>
+
+                <div class="nickname">
+                    ELDOW ROSHAN
+                </div>
+            </div>
+
+            <h2>🏆 SURVIVOR</h2>
+
+            <p>
+                Room 13 suddenly disappears.
+            </p>
+
+            <p>
+                ACHAYAN wakes up outside the college.
+            </p>
+
+            <p>
+                The time is exactly <b>7:00 PM.</b>
+            </p>
+
+            <p>
+                His phone turns on.
+            </p>
+
+            <p>
+                <b>"SURVIVOR: ACHAYAN"</b>
+            </p>
+
+            <p>
+                The screen goes black.
+            </p>
+
+            <h2>ONE SURVIVED.</h2>
+
+            <button onclick="restart()">
+                ↻ Play Again
+            </button>
+
+            <button class="small-btn" onclick="goHome()">
+                ← Character Select
+            </button>
+
+        </div>
+    `;
+}
+
+
+function restart() {
+    currentPart = 0;
+    showPart();
+}
+
+
+function goHome() {
+    window.location.href = "index.html";
+}
+
+
+showPart();
+
+</script>
+
+</body>
+</html>
