@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Character Cards</title>
+<title>Character Collection</title>
 
 <style>
 * {
@@ -13,30 +12,29 @@
 
 body {
     margin: 0;
-    padding: 20px;
-    background: #050505;
+    min-height: 100vh;
+    background: #080808;
     color: white;
     font-family: Arial, sans-serif;
+    padding: 25px 15px;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 30px;
+    font-size: clamp(25px, 6vw, 45px);
     letter-spacing: 3px;
 }
 
 .cards {
+    max-width: 1200px;
+    margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-    max-width: 1200px;
-    margin: auto;
 }
 
-/* =========================
-   CARD
-========================= */
-
+/* CARD */
 .card {
     height: 620px;
     perspective: 1200px;
@@ -44,9 +42,9 @@ h1 {
 }
 
 .card-inner {
-    position: relative;
     width: 100%;
     height: 100%;
+    position: relative;
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
@@ -55,40 +53,31 @@ h1 {
     transform: rotateY(180deg);
 }
 
-/* =========================
-   FRONT + BACK
-========================= */
-
 .card-front,
 .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
+    border-radius: 22px;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    border-radius: 20px;
     overflow: hidden;
 }
 
-/* =========================
-   FRONT
-========================= */
-
+/* FRONT */
 .card-front {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-
+    align-items: center;
     text-align: center;
-    padding: 20px;
-
-    background: #101010;
+    padding: 25px;
+    background: linear-gradient(145deg, #111, #050505);
 }
 
-.front-symbol {
+.front-icon {
     font-size: 75px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .front-title {
@@ -97,20 +86,18 @@ h1 {
     letter-spacing: 2px;
 }
 
-.front-hint {
-    margin-top: 20px;
-    color: #777;
-    font-size: 12px;
+.tap {
+    margin-top: 25px;
+    font-size: 13px;
+    opacity: 0.6;
     letter-spacing: 2px;
 }
 
-/* =========================
-   BACK
-========================= */
-
+/* BACK */
 .card-back {
-    background: #111;
     transform: rotateY(180deg);
+    background: #101010;
+    padding-bottom: 20px;
     overflow-y: auto;
 }
 
@@ -119,190 +106,184 @@ h1 {
     height: 285px;
     object-fit: cover;
     display: block;
-    background: #222;
 }
 
 .info {
-    padding: 18px;
+    padding: 20px;
 }
 
 .name {
-    font-size: 24px;
+    text-align: center;
+    font-size: 25px;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .nickname {
+    text-align: center;
     font-size: 14px;
-    margin-top: 4px;
-    margin-bottom: 18px;
     opacity: 0.7;
+    margin-bottom: 20px;
 }
 
-/* =========================
-   STATS
-========================= */
-
 .stat {
-    margin: 11px 0;
+    margin: 13px 0;
 }
 
 .stat-name {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
     font-size: 14px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .bar {
     width: 100%;
-    height: 7px;
+    height: 9px;
     background: #292929;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
 }
 
 .fill {
     height: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
 }
-
-.question {
-    opacity: 0.6;
-}
-
-/* =========================
-   WEAKNESS
-========================= */
 
 .weakness {
-    margin-top: 20px;
+    margin-top: 22px;
     padding: 13px;
+    text-align: center;
     border-radius: 12px;
     background: rgba(255,255,255,0.05);
-    font-weight: bold;
     font-size: 14px;
 }
-
-/* =========================
-   CHARACTER COLORS
-========================= */
 
 /* ACHAYAN - GOLD */
 .achayan .card-front,
 .achayan .card-back {
-    border: 2px solid #ffd700;
-    box-shadow:
-        0 0 8px #ffd700,
-        0 0 20px #ffd700,
-        inset 0 0 15px rgba(255,215,0,0.15);
+    border: 2px solid gold;
+    box-shadow: 0 0 25px rgba(255,215,0,0.45);
+}
+
+.achayan .front-title,
+.achayan .name {
+    color: gold;
 }
 
 .achayan .fill {
-    background: #ffd700;
+    background: gold;
 }
 
 /* NIVED - EMERALD */
 .nived .card-front,
 .nived .card-back {
-    border: 2px solid #00ff88;
-    box-shadow:
-        0 0 8px #00ff88,
-        0 0 20px #00ff88,
-        inset 0 0 15px rgba(0,255,136,0.15);
+    border: 2px solid #00e676;
+    box-shadow: 0 0 25px rgba(0,230,118,0.4);
+}
+
+.nived .front-title,
+.nived .name {
+    color: #00e676;
 }
 
 .nived .fill {
-    background: #00ff88;
+    background: #00e676;
 }
 
 /* ROHIT - BLUE */
 .rohit .card-front,
 .rohit .card-back {
-    border: 2px solid #00aaff;
-    box-shadow:
-        0 0 8px #00aaff,
-        0 0 20px #00aaff,
-        inset 0 0 15px rgba(0,170,255,0.15);
+    border: 2px solid #2196f3;
+    box-shadow: 0 0 25px rgba(33,150,243,0.45);
+}
+
+.rohit .front-title,
+.rohit .name {
+    color: #2196f3;
 }
 
 .rohit .fill {
-    background: #00aaff;
+    background: #2196f3;
 }
 
 /* ASHISH - RED */
 .ashish .card-front,
 .ashish .card-back {
-    border: 2px solid #ff3030;
-    box-shadow:
-        0 0 8px #ff3030,
-        0 0 20px #ff3030,
-        inset 0 0 15px rgba(255,48,48,0.15);
+    border: 2px solid #ff1744;
+    box-shadow: 0 0 25px rgba(255,23,68,0.45);
+}
+
+.ashish .front-title,
+.ashish .name {
+    color: #ff1744;
 }
 
 .ashish .fill {
-    background: #ff3030;
+    background: #ff1744;
 }
 
 /* ASWIN - ORANGE */
 .aswin .card-front,
 .aswin .card-back {
-    border: 2px solid #ff7b00;
-    box-shadow:
-        0 0 8px #ff7b00,
-        0 0 20px #ff7b00,
-        inset 0 0 15px rgba(255,123,0,0.15);
+    border: 2px solid #ff6d00;
+    box-shadow: 0 0 25px rgba(255,109,0,0.45);
+}
+
+.aswin .front-title,
+.aswin .name {
+    color: #ff6d00;
 }
 
 .aswin .fill {
-    background: #ff7b00;
+    background: #ff6d00;
 }
 
 /* JJ - BLACK / MYSTERY */
 .jj .card-front,
 .jj .card-back {
-    border: 2px solid #555;
-    background: #020202;
-    box-shadow:
-        0 0 5px #777,
-        0 0 15px #333,
-        inset 0 0 20px rgba(255,255,255,0.03);
+    border: 2px solid #777;
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
+    background: linear-gradient(145deg, #050505, #151515);
+}
+
+.jj .front-title,
+.jj .name {
+    color: white;
 }
 
 .jj .fill {
     background: #777;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.question {
+    color: #aaa;
+}
 
-@media (max-width: 900px) {
+/* TABLET */
+@media (max-width: 950px) {
     .cards {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* MOBILE */
 @media (max-width: 600px) {
-
     body {
-        padding: 12px;
+        padding: 15px 10px;
     }
 
     .cards {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .card {
-        height: 640px;
+        height: 600px;
     }
 
     .photo {
-        height: 300px;
-    }
-
-    .front-title {
-        font-size: 24px;
+        height: 270px;
     }
 }
 </style>
@@ -314,340 +295,287 @@ h1 {
 
 <div class="cards">
 
-
-<!-- =========================
-     ACHAYAN
-========================= -->
-
+<!-- ACHAYAN -->
 <div class="card achayan" onclick="this.classList.toggle('open')">
-
 <div class="card-inner">
 
 <div class="card-front">
-    <div class="front-symbol">👑</div>
+    <div class="front-icon">👑</div>
     <div class="front-title">ACHAYAN</div>
-    <div class="front-hint">TAP TO REVEAL</div>
+    <div class="tap">TAP TO REVEAL</div>
 </div>
 
 <div class="card-back">
+    <img src="achayan.jpg" class="photo">
 
-<img src="achayan.jpg" class="photo" alt="Achayan">
+    <div class="info">
+        <div class="name">ACHAYAN</div>
+        <div class="nickname">ELDOW ROSHAN</div>
 
-<div class="info">
+        <div class="stat">
+            <div class="stat-name"><span>💪 Strength</span><span>99</span></div>
+            <div class="bar"><div class="fill" style="width:99%"></div></div>
+        </div>
 
-<div class="name">ACHAYAN</div>
-<div class="nickname">ELDOW ROSHAN</div>
+        <div class="stat">
+            <div class="stat-name"><span>⚡ Agility</span><span>42</span></div>
+            <div class="bar"><div class="fill" style="width:42%"></div></div>
+        </div>
 
-<div class="stat">
-<div class="stat-name">
-<span>⚔️ Strength</span><b>99</b>
-</div>
-<div class="bar"><div class="fill" style="width:99%"></div></div>
-</div>
+        <div class="stat">
+            <div class="stat-name"><span>🧠 Intelligence</span><span>74</span></div>
+            <div class="bar"><div class="fill" style="width:74%"></div></div>
+        </div>
 
-<div class="stat">
-<div class="stat-name">
-<span>🏃 Agility</span><b>42</b>
-</div>
-<div class="bar"><div class="fill" style="width:42%"></div></div>
-</div>
+        <div class="stat">
+            <div class="stat-name"><span>🌪️ Chaos</span><span>97</span></div>
+            <div class="bar"><div class="fill" style="width:97%"></div></div>
+        </div>
 
-<div class="stat">
-<div class="stat-name">
-<span>🧠 Intelligence</span><b>74</b>
-</div>
-<div class="bar"><div class="fill" style="width:74%"></div></div>
-</div>
-
-<div class="stat">
-<div class="stat-name">
-<span>❤️ Vitality</span><b>91</b>
-</div>
-<div class="bar"><div class="fill" style="width:91%"></div></div>
-</div>
-
-<div class="stat">
-<div class="stat-name">
-<span>🔮 Mana</span><b>88</b>
-</div>
-<div class="bar"><div class="fill" style="width:88%"></div></div>
-</div>
-
-<div class="stat">
-<div class="stat-name">
-<span>🍀 Luck</span><b>69</b>
-</div>
-<div class="bar"><div class="fill" style="width:69%"></div></div>
-</div>
-
-<div class="stat">
-<div class="stat-name">
-<span>☠️ Chaos</span><b>97</b>
-</div>
-<div class="bar"><div class="fill" style="width:97%"></div></div>
-</div>
-
-<div class="weakness">
-⚠️ Weakness: 🐻 Bears
+        <div class="weakness">⚠️ Weakness: 🐻 Bears</div>
+    </div>
 </div>
 
 </div>
 </div>
-</div>
-</div>
 
 
-<!-- =========================
-     NIVED
-========================= -->
-
+<!-- NIVED -->
 <div class="card nived" onclick="this.classList.toggle('open')">
-
 <div class="card-inner">
 
 <div class="card-front">
-    <div class="front-symbol">💚</div>
+    <div class="front-icon">💚</div>
     <div class="front-title">LADY MAGNET</div>
-    <div class="front-hint">TAP TO REVEAL</div>
+    <div class="tap">TAP TO REVEAL</div>
 </div>
 
 <div class="card-back">
+    <img src="nived.jpg" class="photo">
 
-<img src="nived.jpg" class="photo" alt="Nived C">
+    <div class="info">
+        <div class="name">NIVED C</div>
+        <div class="nickname">LADY MAGNET</div>
 
-<div class="info">
+        <div class="stat">
+            <div class="stat-name"><span>💪 Strength</span><span>76</span></div>
+            <div class="bar"><div class="fill" style="width:76%"></div></div>
+        </div>
 
-<div class="name">NIVED C</div>
-<div class="nickname">LADY MAGNET</div>
+        <div class="stat">
+            <div class="stat-name"><span>⚡ Agility</span><span>84</span></div>
+            <div class="bar"><div class="fill" style="width:84%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>⚔️ Strength</span><b>76</b></div><div class="bar"><div class="fill" style="width:76%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🧠 Intelligence</span><span>81</span></div>
+            <div class="bar"><div class="fill" style="width:81%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🏃 Agility</span><b>84</b></div><div class="bar"><div class="fill" style="width:84%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>😎 Rizz</span><span>100</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🧠 Intelligence</span><b>81</b></div><div class="bar"><div class="fill" style="width:81%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>❤️ Vitality</span><b>79</b></div><div class="bar"><div class="fill" style="width:79%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🔮 Mana</span><b>92</b></div><div class="bar"><div class="fill" style="width:92%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🍀 Luck</span><b>99</b></div><div class="bar"><div class="fill" style="width:99%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>💘 Rizz</span><b>100</b></div><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>👩‍❤️‍👨 Date Requests</span><b>98</b></div><div class="bar"><div class="fill" style="width:98%"></div></div></div>
-
-<div class="weakness">
-⚠️ Weakness: 👩 Girls
+        <div class="weakness">⚠️ Weakness: 👩 Girls</div>
+    </div>
 </div>
 
 </div>
 </div>
-</div>
-</div>
 
 
-<!-- =========================
-     ROHIT
-========================= -->
-
+<!-- ROHIT -->
 <div class="card rohit" onclick="this.classList.toggle('open')">
-
 <div class="card-inner">
 
 <div class="card-front">
-    <div class="front-symbol">🎓</div>
+    <div class="front-icon">🎓</div>
     <div class="front-title">PROFESSIONAL BUNKER</div>
-    <div class="front-hint">TAP TO REVEAL</div>
+    <div class="tap">TAP TO REVEAL</div>
 </div>
 
 <div class="card-back">
+    <img src="rohit.jpg" class="photo">
 
-<img src="rohit.jpg" class="photo" alt="Rohit Vincent">
+    <div class="info">
+        <div class="name">ROHIT VINCENT</div>
+        <div class="nickname">PROFESSIONAL BUNKER</div>
 
-<div class="info">
+        <div class="stat">
+            <div class="stat-name"><span>💪 Strength</span><span>88</span></div>
+            <div class="bar"><div class="fill" style="width:88%"></div></div>
+        </div>
 
-<div class="name">ROHIT VINCENT</div>
-<div class="nickname">PROFESSIONAL BUNKER</div>
+        <div class="stat">
+            <div class="stat-name"><span>⚡ Agility</span><span>85</span></div>
+            <div class="bar"><div class="fill" style="width:85%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>⚔️ Strength</span><b>88</b></div><div class="bar"><div class="fill" style="width:88%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🧠 Intelligence</span><span>94</span></div>
+            <div class="bar"><div class="fill" style="width:94%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🏃 Agility</span><b>85</b></div><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🏃 Escape Rate</span><span>100</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🧠 Intelligence</span><b>94</b></div><div class="bar"><div class="fill" style="width:94%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>❤️ Vitality</span><b>91</b></div><div class="bar"><div class="fill" style="width:91%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🔮 Mana</span><b>82</b></div><div class="bar"><div class="fill" style="width:82%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>📚 Study</span><b>99</b></div><div class="bar"><div class="fill" style="width:99%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🏋️ Gym</span><b>96</b></div><div class="bar"><div class="fill" style="width:96%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🎉 Program Attendance</span><b>0</b></div><div class="bar"><div class="fill" style="width:0%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🏃 Escape Rate</span><b>100</b></div><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-
-<div class="weakness">
-⚠️ Weakness: 📚 Studying Too Much
+        <div class="weakness">⚠️ Weakness: 📚 Studying Too Much</div>
+    </div>
 </div>
 
 </div>
 </div>
-</div>
-</div>
 
 
-<!-- =========================
-     ASHISH
-========================= -->
-
+<!-- ASHISH -->
 <div class="card ashish" onclick="this.classList.toggle('open')">
-
 <div class="card-inner">
 
 <div class="card-front">
-    <div class="front-symbol">🎤</div>
+    <div class="front-icon">🎤</div>
     <div class="front-title">THE SINGER</div>
-    <div class="front-hint">TAP TO REVEAL</div>
+    <div class="tap">TAP TO REVEAL</div>
 </div>
 
 <div class="card-back">
+    <img src="ashish.jpg" class="photo">
 
-<img src="ashish.jpg" class="photo" alt="Ashish K Sibi">
+    <div class="info">
+        <div class="name">ASHISH K SIBI</div>
+        <div class="nickname">THE SINGER</div>
 
-<div class="info">
+        <div class="stat">
+            <div class="stat-name"><span>💪 Strength</span><span>84</span></div>
+            <div class="bar"><div class="fill" style="width:84%"></div></div>
+        </div>
 
-<div class="name">ASHISH K SIBI</div>
-<div class="nickname">THE SINGER</div>
+        <div class="stat">
+            <div class="stat-name"><span>⚡ Agility</span><span>87</span></div>
+            <div class="bar"><div class="fill" style="width:87%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>⚔️ Strength</span><b>84</b></div><div class="bar"><div class="fill" style="width:84%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🧠 Intelligence</span><span>81</span></div>
+            <div class="bar"><div class="fill" style="width:81%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🏃 Agility</span><b>87</b></div><div class="bar"><div class="fill" style="width:87%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🎤 Singing</span><span>100</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🧠 Intelligence</span><b>81</b></div><div class="bar"><div class="fill" style="width:81%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>❤️ Vitality</span><b>90</b></div><div class="bar"><div class="fill" style="width:90%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🔮 Mana</span><b>95</b></div><div class="bar"><div class="fill" style="width:95%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🎤 Singing</span><b>100</b></div><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>📸 Photo Style</span><b>97</b></div><div class="bar"><div class="fill" style="width:97%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>😎 Aura</span><b>96</b></div><div class="bar"><div class="fill" style="width:96%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>✨ Charisma</span><b>94</b></div><div class="bar"><div class="fill" style="width:94%"></div></div></div>
-
-<div class="weakness">
-⚠️ Weakness: 😴 Lack of Sleep
+        <div class="weakness">⚠️ Weakness: 😴 Lack of Sleep</div>
+    </div>
 </div>
 
 </div>
 </div>
-</div>
-</div>
 
 
-<!-- =========================
-     ASWIN
-========================= -->
-
+<!-- ASWIN -->
 <div class="card aswin" onclick="this.classList.toggle('open')">
-
 <div class="card-inner">
 
 <div class="card-front">
-    <div class="front-symbol">🕶️</div>
+    <div class="front-icon">🕶️</div>
     <div class="front-title">THE WILDCARD</div>
-    <div class="front-hint">TAP TO REVEAL</div>
+    <div class="tap">TAP TO REVEAL</div>
 </div>
 
 <div class="card-back">
+    <img src="aswin.jpg" class="photo">
 
-<img src="aswin.jpg" class="photo" alt="Aswin Sinu">
+    <div class="info">
+        <div class="name">ASWIN SINU</div>
+        <div class="nickname">THE WILDCARD</div>
 
-<div class="info">
+        <div class="stat">
+            <div class="stat-name"><span>💪 Strength</span><span>91</span></div>
+            <div class="bar"><div class="fill" style="width:91%"></div></div>
+        </div>
 
-<div class="name">ASWIN SINU</div>
-<div class="nickname">THE WILDCARD</div>
+        <div class="stat">
+            <div class="stat-name"><span>⚡ Agility</span><span>89</span></div>
+            <div class="bar"><div class="fill" style="width:89%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>⚔️ Strength</span><b>91</b></div><div class="bar"><div class="fill" style="width:91%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🧠 Intelligence</span><span>86</span></div>
+            <div class="bar"><div class="fill" style="width:86%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🏃 Agility</span><b>89</b></div><div class="bar"><div class="fill" style="width:89%"></div></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>⚠️ Danger</span><span>98</span></div>
+            <div class="bar"><div class="fill" style="width:98%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🧠 Intelligence</span><b>86</b></div><div class="bar"><div class="fill" style="width:86%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>❤️ Vitality</span><b>89</b></div><div class="bar"><div class="fill" style="width:89%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🔮 Mana</span><b>93</b></div><div class="bar"><div class="fill" style="width:93%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>☠️ Danger</span><b>98</b></div><div class="bar"><div class="fill" style="width:98%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🎬 Movie Knowledge</span><b>95</b></div><div class="bar"><div class="fill" style="width:95%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>💘 Secret GF Potential</span><b>99</b></div><div class="bar"><div class="fill" style="width:99%"></div></div></div>
-
-<div class="stat"><div class="stat-name"><span>🕶️ Mystery</span><b>100</b></div><div class="bar"><div class="fill" style="width:100%"></div></div></div>
-
-<div class="weakness">
-⚠️ Weakness: 🎬 Spoilers
+        <div class="weakness">⚠️ Weakness: 🎬 Spoilers</div>
+    </div>
 </div>
 
 </div>
 </div>
-</div>
-</div>
 
 
-<!-- =========================
-     JESWIN / JJ
-========================= -->
-
+<!-- JESWIN / JJ -->
 <div class="card jj" onclick="this.classList.toggle('open')">
-
 <div class="card-inner">
 
 <div class="card-front">
-    <div class="front-symbol">❓</div>
+    <div class="front-icon">❓</div>
     <div class="front-title">JJ</div>
-    <div class="front-hint">TAP TO REVEAL</div>
+    <div class="tap">TAP TO REVEAL</div>
 </div>
 
 <div class="card-back">
+    <img src="jeswin.jpg" class="photo">
 
-<img src="jeswin.jpg" class="photo" alt="Jeswin Jeo">
+    <div class="info">
+        <div class="name">JESWIN JEO</div>
+        <div class="nickname">JJ</div>
 
-<div class="info">
+        <div class="stat">
+            <div class="stat-name"><span>💪 Strength</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="name">JESWIN JEO</div>
-<div class="nickname">JJ</div>
+        <div class="stat">
+            <div class="stat-name"><span>⚡ Agility</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>⚔️ Strength</span><b class="question">???</b></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🧠 Intelligence</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🏃 Agility</span><b class="question">???</b></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🏃 Speed</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🧠 Intelligence</span><b class="question">???</b></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>✨ Aura</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>❤️ Vitality</span><b class="question">???</b></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>⚠️ Danger</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>🔮 Mana</span><b class="question">???</b></div></div>
+        <div class="stat">
+            <div class="stat-name"><span>🔮 Potential</span><span>???</span></div>
+            <div class="bar"><div class="fill" style="width:100%"></div></div>
+        </div>
 
-<div class="stat"><div class="stat-name"><span>⚡ Speed</span><b class="question">???</b></div></div>
-
-<div class="stat"><div class="stat-name"><span>🍀 Luck</span><b class="question">???</b></div></div>
-
-<div class="stat"><div class="stat-name"><span>😎 Aura</span><b class="question">???</b></div></div>
-
-<div class="stat"><div class="stat-name"><span>☠️ Danger</span><b class="question">???</b></div></div>
-
-<div class="stat"><div class="stat-name"><span>👑 Potential</span><b class="question">???</b></div></div>
-
-<div class="weakness">
-⚠️ Weakness: ❓ Unknown
+        <div class="weakness">⚠️ Weakness: ❓ Unknown</div>
+    </div>
 </div>
 
-</div>
-</div>
 </div>
 </div>
 
