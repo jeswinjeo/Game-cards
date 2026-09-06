@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Last Period</title>
+<title>THE LAST PERIOD</title>
 
 <style>
 * {
@@ -12,46 +12,45 @@
 
 body {
     margin: 0;
-    background: #080808;
+    background: #070707;
     color: white;
     font-family: Arial, sans-serif;
 }
 
-/* HOME */
-#homePage {
+/* ================= HOME ================= */
+
+#home {
     min-height: 100vh;
     padding: 25px 15px;
 }
 
-.title {
+.main-title {
     text-align: center;
     font-size: 38px;
-    margin-bottom: 10px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
+    margin: 10px 0;
 }
 
 .subtitle {
     text-align: center;
-    color: #aaa;
+    color: #888;
     margin-bottom: 30px;
 }
 
-.characters {
+.cards {
+    max-width: 1100px;
+    margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 18px;
-    max-width: 1100px;
-    margin: auto;
 }
 
 .card {
     background: #111;
-    border: 2px solid #333;
+    border: 1px solid #333;
     border-radius: 18px;
     padding: 18px;
     text-align: center;
-    min-height: 300px;
-    box-shadow: 0 0 20px #000;
 }
 
 .card img {
@@ -60,79 +59,81 @@ body {
     object-fit: cover;
     border-radius: 50%;
     border: 3px solid white;
-    margin-bottom: 12px;
 }
 
 .card h2 {
-    margin: 5px 0;
+    margin: 12px 0 5px;
 }
 
 .nickname {
-    color: #aaa;
+    color: #999;
     font-size: 14px;
     margin-bottom: 15px;
 }
 
 .stats {
     text-align: left;
+    line-height: 1.8;
     font-size: 14px;
-    line-height: 1.7;
 }
 
-.playBtn {
+.play {
     width: 100%;
     margin-top: 15px;
-    padding: 12px;
-    border: none;
+    padding: 13px;
+    border: 0;
     border-radius: 10px;
     background: white;
     color: black;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.playBtn:hover {
-    transform: scale(1.03);
+.play:active {
+    transform: scale(.97);
 }
 
-/* STORY PAGE */
-#storyPage {
+/* ================= STORY ================= */
+
+#story {
     display: none;
     min-height: 100vh;
     padding: 25px 18px;
-    background:
-        radial-gradient(circle at top, #181818, #050505 65%);
 }
 
-.storyContainer {
-    max-width: 800px;
+.story-box {
+    max-width: 750px;
     margin: auto;
 }
 
-.storyHeader {
+.story-top {
     text-align: center;
     border-bottom: 1px solid #333;
     padding-bottom: 20px;
     margin-bottom: 30px;
 }
 
-.storyHeader h1 {
-    font-size: 30px;
-    letter-spacing: 2px;
-}
-
 .part {
     color: #777;
     font-size: 13px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
-.storyText {
-    font-size: 19px;
+.story-title {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.character {
+    color: #aaa;
+}
+
+.story-text {
+    font-size: 18px;
     line-height: 1.9;
-    color: #eee;
     white-space: pre-line;
-    min-height: 280px;
+    min-height: 300px;
 }
 
 .choices {
@@ -141,115 +142,155 @@ body {
     gap: 12px;
 }
 
-.choiceBtn {
-    padding: 17px;
-    border-radius: 12px;
-    border: 1px solid #555;
+.choice {
     background: #151515;
     color: white;
-    text-align: left;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 17px;
     font-size: 16px;
+    text-align: left;
     cursor: pointer;
 }
 
-.choiceBtn:hover {
-    background: #252525;
+.choice:hover {
+    background: #222;
     border-color: white;
 }
 
-.backBtn {
+.home-button {
     margin-top: 25px;
     padding: 12px 20px;
-    border-radius: 10px;
-    border: 1px solid #555;
     background: transparent;
     color: #aaa;
+    border: 1px solid #444;
+    border-radius: 10px;
     cursor: pointer;
 }
 
-/* DEATH */
-#deathPage,
-#endingPage {
+/* ================= DEATH ================= */
+
+#death {
     display: none;
     min-height: 100vh;
-    padding: 30px 18px;
+    padding: 30px 20px;
     text-align: center;
-    background: #050505;
 }
 
-.deathBox,
-.endingBox {
+.death-box {
     max-width: 700px;
     margin: 100px auto;
 }
 
-.deathTitle {
-    font-size: 50px;
+.death-title {
+    font-size: 55px;
     color: #ff3030;
-    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.endingTitle {
-    font-size: 50px;
-    margin-bottom: 20px;
-}
-
-.deathText,
-.endingText {
-    font-size: 19px;
+.death-text {
+    font-size: 18px;
     line-height: 1.8;
-    color: #ddd;
     white-space: pre-line;
+    color: #ddd;
+    margin: 25px 0;
 }
 
-.actionBtn {
-    margin: 10px;
-    padding: 14px 25px;
-    border: none;
+.action {
+    padding: 14px 24px;
+    margin: 7px;
+    border: 0;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
 }
 
-/* MOBILE */
+/* ================= ENDING ================= */
+
+#ending {
+    display: none;
+    min-height: 100vh;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.ending-box {
+    max-width: 700px;
+    margin: 100px auto;
+}
+
+.ending-title {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.ending-text {
+    font-size: 18px;
+    line-height: 1.8;
+    white-space: pre-line;
+    color: #ddd;
+    margin: 25px 0;
+}
+
+/* ================= MOBILE ================= */
+
 @media(max-width: 800px) {
-    .characters {
+    .cards {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media(max-width: 550px) {
-    .characters {
+    .cards {
         grid-template-columns: 1fr;
     }
 
-    .title {
+    .main-title {
         font-size: 30px;
     }
 
-    .storyText {
+    .story-title {
+        font-size: 25px;
+    }
+
+    .story-text {
         font-size: 17px;
     }
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- ================= HOME PAGE ================= -->
+<!-- ================================================= -->
+<!-- HOME -->
+<!-- ================================================= -->
 
-<div id="homePage">
+<div id="home">
 
-    <div class="title">THE LAST PERIOD</div>
-    <div class="subtitle">Choose your character</div>
+    <div class="main-title">
+        THE LAST PERIOD
+    </div>
 
-    <div class="characters">
+    <div class="subtitle">
+        CHOOSE YOUR CHARACTER
+    </div>
+
+
+    <div class="cards">
 
         <!-- ACHAYAN -->
+
         <div class="card">
-            <img src="achayan.jpg">
+
+            <img src="achayan.jpg" alt="Achayan">
+
             <h2>ACHAYAN</h2>
-            <div class="nickname">ELDOW ROSHAN</div>
+
+            <div class="nickname">
+                ELDOW ROSHAN
+            </div>
 
             <div class="stats">
                 💪 Strength: 99<br>
@@ -259,16 +300,24 @@ body {
                 ⚠️ Weakness: 🍺 Beer
             </div>
 
-            <button class="playBtn" data-character="achayan">
+            <button class="play" onclick="startGame('achayan')">
                 PLAY
             </button>
+
         </div>
 
+
         <!-- NIVED -->
+
         <div class="card">
-            <img src="nived.jpg">
+
+            <img src="nived.jpg" alt="Nived">
+
             <h2>NIVED C</h2>
-            <div class="nickname">LADY MAGNET</div>
+
+            <div class="nickname">
+                LADY MAGNET
+            </div>
 
             <div class="stats">
                 💪 Strength: 76<br>
@@ -278,16 +327,24 @@ body {
                 ⚠️ Weakness: 👩 Girls
             </div>
 
-            <button class="playBtn" data-character="nived">
+            <button class="play" onclick="startGame('nived')">
                 PLAY
             </button>
+
         </div>
 
+
         <!-- ROHIT -->
+
         <div class="card">
-            <img src="rohit.jpg">
+
+            <img src="rohit.jpg" alt="Rohit">
+
             <h2>ROHIT VINCENT</h2>
-            <div class="nickname">PROFESSIONAL BUNKER</div>
+
+            <div class="nickname">
+                PROFESSIONAL BUNKER
+            </div>
 
             <div class="stats">
                 💪 Strength: 88<br>
@@ -297,16 +354,24 @@ body {
                 ⚠️ Weakness: 📚 Studying Too Much
             </div>
 
-            <button class="playBtn" data-character="rohit">
+            <button class="play" onclick="startGame('rohit')">
                 PLAY
             </button>
+
         </div>
 
+
         <!-- ASHISH -->
+
         <div class="card">
-            <img src="ashish.jpg">
+
+            <img src="ashish.jpg" alt="Ashish">
+
             <h2>ASHISH K SIBI</h2>
-            <div class="nickname">THE SINGER</div>
+
+            <div class="nickname">
+                THE SINGER
+            </div>
 
             <div class="stats">
                 💪 Strength: 84<br>
@@ -316,16 +381,24 @@ body {
                 ⚠️ Weakness: 😴 Lack of Sleep
             </div>
 
-            <button class="playBtn" data-character="ashish">
+            <button class="play" onclick="startGame('ashish')">
                 PLAY
             </button>
+
         </div>
 
+
         <!-- ASWIN -->
+
         <div class="card">
-            <img src="aswin.jpg">
+
+            <img src="aswin.jpg" alt="Aswin">
+
             <h2>ASWIN SINU</h2>
-            <div class="nickname">THE WILDCARD</div>
+
+            <div class="nickname">
+                THE WILDCARD
+            </div>
 
             <div class="stats">
                 💪 Strength: 91<br>
@@ -335,16 +408,24 @@ body {
                 ⚠️ Weakness: 🎬 Spoilers
             </div>
 
-            <button class="playBtn" data-character="aswin">
+            <button class="play" onclick="startGame('aswin')">
                 PLAY
             </button>
+
         </div>
 
+
         <!-- JJ -->
+
         <div class="card">
-            <img src="jeswin.jpg">
+
+            <img src="jeswin.jpg" alt="JJ">
+
             <h2>JESWIN JEO</h2>
-            <div class="nickname">JJ</div>
+
+            <div class="nickname">
+                JJ
+            </div>
 
             <div class="stats">
                 💪 Strength: ???<br>
@@ -356,88 +437,134 @@ body {
                 🔮 Potential: ???
             </div>
 
-            <button class="playBtn" disabled style="opacity:.35;cursor:not-allowed;">
+            <button class="play" disabled
+                style="opacity:.35;cursor:not-allowed;">
                 NOT PLAYABLE
             </button>
+
         </div>
 
     </div>
+
 </div>
 
 
-<!-- ================= STORY PAGE ================= -->
 
-<div id="storyPage">
+<!-- ================================================= -->
+<!-- STORY -->
+<!-- ================================================= -->
 
-    <div class="storyContainer">
+<div id="story">
 
-        <div class="storyHeader">
-            <div class="part" id="partNumber"></div>
-            <h1 id="storyTitle"></h1>
-            <div id="characterName"></div>
+    <div class="story-box">
+
+        <div class="story-top">
+
+            <div class="part" id="part">
+                PART 1
+            </div>
+
+            <div class="story-title" id="storyTitle">
+                THE MESSAGE
+            </div>
+
+            <div class="character" id="character">
+                ACHAYAN
+            </div>
+
         </div>
 
-        <div class="storyText" id="storyText"></div>
+
+        <div class="story-text" id="storyText"></div>
+
 
         <div class="choices" id="choices"></div>
 
-        <button class="backBtn" id="homeButton">
-            ← Character Select
+
+        <button class="home-button" onclick="goHome()">
+            ← CHARACTER SELECT
         </button>
 
     </div>
+
 </div>
 
 
-<!-- ================= DEATH PAGE ================= -->
 
-<div id="deathPage">
+<!-- ================================================= -->
+<!-- DEATH -->
+<!-- ================================================= -->
 
-    <div class="deathBox">
+<div id="death">
 
-        <div class="deathTitle">YOU DIED</div>
+    <div class="death-box">
 
-        <div class="deathText" id="deathText"></div>
+        <div class="death-title">
+            YOU DIED
+        </div>
 
-        <button class="actionBtn" id="restartBtn">
+        <div class="death-text" id="deathText"></div>
+
+        <button class="action" onclick="restartGame()">
             RESTART STORY
         </button>
 
-        <button class="actionBtn" id="deathHomeBtn">
+        <button class="action" onclick="goHome()">
             CHARACTER SELECT
         </button>
 
     </div>
+
 </div>
 
 
-<!-- ================= ENDING PAGE ================= -->
 
-<div id="endingPage">
+<!-- ================================================= -->
+<!-- ENDING -->
+<!-- ================================================= -->
 
-    <div class="endingBox">
+<div id="ending">
 
-        <div class="endingTitle">SURVIVOR</div>
+    <div class="ending-box">
 
-        <div class="endingText" id="endingText"></div>
+        <div class="ending-title">
+            SURVIVOR
+        </div>
 
-        <button class="actionBtn" id="endingRestartBtn">
+        <div class="ending-text" id="endingText"></div>
+
+        <button class="action" onclick="restartGame()">
             PLAY AGAIN
         </button>
 
-        <button class="actionBtn" id="endingHomeBtn">
+        <button class="action" onclick="goHome()">
             CHARACTER SELECT
         </button>
 
     </div>
+
 </div>
+
 
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function() {
+/* =====================================================
+   GAME VARIABLES
+===================================================== */
+
+let currentCharacter = "";
+let currentPart = 0;
+
+
+/* =====================================================
+   STORY DATA
+===================================================== */
 
 const stories = {
+
+
+/* ================= ACHAYAN ================= */
 
 achayan: {
 
@@ -447,8 +574,8 @@ parts: [
 
 {
 title: "THE MESSAGE",
-text:
-`6:13 PM.
+
+text: `6:13 PM.
 
 Achayan's phone suddenly vibrates.
 
@@ -467,16 +594,50 @@ Achayan looks toward the old building.
 Something feels wrong.`,
 
 choices: [
-["Go to the old building", "death", "Achayan enters the old building. The door suddenly locks behind him. Something moves in the darkness. Before he can react, a violent force throws him against the wall.\n\nCAUSE OF DEATH: Severe head trauma."],
-["Go to Room 13", "next"],
-["Call the unknown number", "death", "The call connects immediately.\n\nA distorted voice whispers his name. Achayan turns toward the road while listening.\n\nA speeding vehicle hits him before he realizes what is happening.\n\nCAUSE OF DEATH: Fatal collision."]
+
+{
+text: "Go to the old building",
+type: "death",
+death: `Achayan enters the old building.
+
+The door suddenly locks behind him.
+
+Something moves in the darkness.
+
+Before he can react, a violent force throws him against the wall.
+
+CAUSE OF DEATH:
+Severe head trauma.`
+},
+
+{
+text: "Go to Room 13",
+type: "next"
+},
+
+{
+text: "Call the unknown number",
+type: "death",
+death: `The call connects immediately.
+
+A distorted voice whispers his name.
+
+Achayan turns toward the road while listening.
+
+A speeding vehicle hits him.
+
+CAUSE OF DEATH:
+Fatal collision.`
+}
+
 ]
+
 },
 
 {
 title: "THE LOCKED DOOR",
-text:
-`Room 13 is completely dark.
+
+text: `Room 13 is completely dark.
 
 Achayan finds the door locked.
 
@@ -487,16 +648,46 @@ Only three strange marks are carved into the wall.
 He notices something hidden beneath the floor.`,
 
 choices: [
-["Kick the door", "death", "Achayan kicks the door with all his strength.\n\nThe force activates a hidden mechanism. Heavy metal equipment falls from above.\n\nCAUSE OF DEATH: Crushing injuries."],
-["Search another entrance", "death", "Achayan finds an old staircase.\n\nThe moment he steps onto it, the rotten structure collapses.\n\nHe falls into the darkness below.\n\nCAUSE OF DEATH: Fatal fall."],
-["Look carefully for a hidden mechanism", "next"]
+
+{
+text: "Kick the door",
+type: "death",
+death: `Achayan kicks the door with all his strength.
+
+The force activates a hidden mechanism.
+
+Heavy metal equipment falls from above.
+
+CAUSE OF DEATH:
+Crushing injuries.`
+},
+
+{
+text: "Search another entrance",
+type: "death",
+death: `Achayan finds an old staircase.
+
+The moment he steps onto it, the rotten structure collapses.
+
+He falls into the darkness below.
+
+CAUSE OF DEATH:
+Fatal fall.`
+},
+
+{
+text: "Look carefully for a hidden mechanism",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE BAR",
-text:
-`Behind the hidden panel is a small room.
+
+text: `Behind the hidden panel is a small room.
 
 A table sits in the middle.
 
@@ -507,16 +698,46 @@ Achayan immediately notices it.
 Beside the bottle is a photograph.`,
 
 choices: [
-["Drink the beer", "death", "Achayan drinks from the bottle.\n\nWithin seconds his vision becomes blurry.\n\nHe collapses as the room seals itself.\n\nCAUSE OF DEATH: Poisoning."],
-["Throw the bottle away", "death", "The bottle hits the floor and breaks.\n\nA strange smell fills the room.\n\nSomething wakes up behind him.\n\nCAUSE OF DEATH: Attack by unknown entity."],
-["Leave the beer untouched and search", "next"]
+
+{
+text: "Drink the beer",
+type: "death",
+death: `Achayan drinks from the bottle.
+
+Within seconds his vision becomes blurry.
+
+He collapses as the room seals itself.
+
+CAUSE OF DEATH:
+Poisoning.`
+},
+
+{
+text: "Throw the bottle away",
+type: "death",
+death: `The bottle hits the floor and breaks.
+
+A strange smell fills the room.
+
+Something wakes up behind him.
+
+CAUSE OF DEATH:
+Attack by unknown entity.`
+},
+
+{
+text: "Leave the beer untouched and search",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE CHASE",
-text:
-`A sound comes from behind.
+
+text: `A sound comes from behind.
 
 Footsteps.
 
@@ -527,16 +748,48 @@ Then faster.
 Something is chasing Achayan through the corridor.`,
 
 choices: [
-["Run", "death", "Achayan runs as fast as he can.\n\nBut the creature is faster.\n\nHis low agility becomes his weakness.\n\nThe creature catches him.\n\nCAUSE OF DEATH: Severe physical trauma."],
-["Hide", "death", "Achayan hides inside a storage room.\n\nThere is no second exit.\n\nThe creature finds him.\n\nCAUSE OF DEATH: Fatal attack."],
-["Stand and fight", "next"]
+
+{
+text: "Run",
+type: "death",
+death: `Achayan runs as fast as he can.
+
+But the creature is faster.
+
+His low agility becomes his weakness.
+
+The creature catches him.
+
+CAUSE OF DEATH:
+Severe physical trauma.`
+},
+
+{
+text: "Hide",
+type: "death",
+death: `Achayan hides inside a storage room.
+
+There is no second exit.
+
+The creature finds him.
+
+CAUSE OF DEATH:
+Fatal attack.`
+},
+
+{
+text: "Stand and fight",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE PHOTOGRAPH",
-text:
-`Achayan defeats the creature.
+
+text: `Achayan defeats the creature.
 
 On the floor lies the photograph.
 
@@ -547,16 +800,42 @@ But there is another person standing inside the photograph.
 The person's face has been scratched out.`,
 
 choices: [
-["Burn the photograph", "death", "The photograph catches fire.\n\nThe flames suddenly spread across the room as if the photograph itself is alive.\n\nCAUSE OF DEATH: Severe burns."],
-["Tear the photograph", "death", "The photograph tears.\n\nThe scratched-out face suddenly appears behind Achayan.\n\nCAUSE OF DEATH: Fatal supernatural attack."],
-["Study the photograph carefully", "next"]
+
+{
+text: "Burn the photograph",
+type: "death",
+death: `The photograph catches fire.
+
+The flames suddenly spread across the room.
+
+CAUSE OF DEATH:
+Severe burns.`
+},
+
+{
+text: "Tear the photograph",
+type: "death",
+death: `The photograph tears.
+
+The scratched-out face suddenly appears behind Achayan.
+
+CAUSE OF DEATH:
+Fatal supernatural attack.`
+},
+
+{
+text: "Study the photograph carefully",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE CLUE",
-text:
-`Behind the photograph is a message.
+
+text: `Behind the photograph is a message.
 
 RETURN ME TO WHERE I BELONG.
 
@@ -565,16 +844,44 @@ Achayan recognizes the room shown in the picture.
 It is the room he came from.`,
 
 choices: [
-["Follow the strange voice", "death", "A voice calls Achayan from a dark room.\n\nHe follows it and enters a room that repeats endlessly.\n\nHe can never escape.\n\nCAUSE OF DEATH: Permanent entrapment."],
-["Open the red door", "death", "The red door opens into complete darkness.\n\nThe temperature suddenly drops.\n\nSomething pulls Achayan inside.\n\nCAUSE OF DEATH: Fatal supernatural attack."],
-["Follow the photograph clue", "next"]
+
+{
+text: "Follow the strange voice",
+type: "death",
+death: `A voice calls Achayan from a dark room.
+
+He follows it and enters a room that repeats endlessly.
+
+He can never escape.
+
+CAUSE OF DEATH:
+Permanent entrapment.`
+},
+
+{
+text: "Open the red door",
+type: "death",
+death: `The red door opens into complete darkness.
+
+Something pulls Achayan inside.
+
+CAUSE OF DEATH:
+Fatal supernatural attack.`
+},
+
+{
+text: "Follow the photograph clue",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE LOOP",
-text:
-`Achayan returns to Room 13.
+
+text: `Achayan returns to Room 13.
 
 Everything looks exactly like the photograph.
 
@@ -591,15 +898,47 @@ The entire building becomes silent.
 The clock reaches 7:00 PM.`,
 
 choices: [
-["Destroy the original photograph", "death", "The photograph disappears.\n\nThe room begins repeating itself faster and faster.\n\nAchayan becomes trapped inside the loop forever.\n\nCAUSE OF DEATH: Permanent supernatural entrapment."],
-["Stay inside", "death", "The door disappears.\n\nAchayan remains trapped in Room 13 as the building slowly fades around him.\n\nCAUSE OF DEATH: Permanent entrapment."],
-["Return the photograph to its original place", "ending"]
+
+{
+text: "Destroy the original photograph",
+type: "death",
+death: `The photograph disappears.
+
+The room begins repeating itself faster and faster.
+
+Achayan becomes trapped inside the loop forever.
+
+CAUSE OF DEATH:
+Permanent supernatural entrapment.`
+},
+
+{
+text: "Stay inside",
+type: "death",
+death: `The door disappears.
+
+Achayan remains trapped in Room 13.
+
+CAUSE OF DEATH:
+Permanent entrapment.`
+},
+
+{
+text: "Return the photograph to its original place",
+type: "ending"
+}
+
 ]
+
 }
 
 ]
 
 },
+
+
+
+/* ================= NIVED ================= */
 
 nived: {
 
@@ -609,8 +948,8 @@ parts: [
 
 {
 title: "THE GIRL",
-text:
-`6:55 PM.
+
+text: `6:55 PM.
 
 Nived reaches the old college block.
 
@@ -621,32 +960,88 @@ She looks directly at him.
 "You're here for Room 13, aren't you?"`,
 
 choices: [
-["Follow her immediately", "death", "Nived follows her into an empty classroom.\n\nThe door locks behind him.\n\nThe girl disappears.\n\nCAUSE OF DEATH: Fatal trap."],
-["Ignore her", "death", "Nived walks past her.\n\nHe enters the restricted block without the information she knows.\n\nThe security doors lock.\n\nCAUSE OF DEATH: Fatal security trap."],
-["Talk and find out what she knows", "next"]
+
+{
+text: "Follow her immediately",
+type: "death",
+death: `Nived follows her into an empty classroom.
+
+The door locks behind him.
+
+The girl disappears.
+
+CAUSE OF DEATH:
+Fatal trap.`
+},
+
+{
+text: "Ignore her",
+type: "death",
+death: `Nived walks past her.
+
+He enters the restricted block without the information she knows.
+
+The security doors lock.
+
+CAUSE OF DEATH:
+Fatal security trap.`
+},
+
+{
+text: "Talk and find out what she knows",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE LIE",
-text:
-`The girl tells Nived that Room 13 is safe.
+
+text: `The girl tells Nived that Room 13 is safe.
 
 But something about her story doesn't make sense.
 
 Nived realizes she is hiding something.`,
 
 choices: [
-["Trust everything she says", "death", "She leads Nived into a hidden trap.\n\nThe door closes.\n\nCAUSE OF DEATH: Fatal trap."],
-["Leave immediately", "death", "The corridor suddenly locks down.\n\nNived is trapped between the security doors.\n\nCAUSE OF DEATH: Crushing injuries."],
-["Use his social skills to make her reveal the truth", "next"]
+
+{
+text: "Trust everything she says",
+type: "death",
+death: `She leads Nived into a hidden trap.
+
+The door closes.
+
+CAUSE OF DEATH:
+Fatal trap.`
+},
+
+{
+text: "Leave immediately",
+type: "death",
+death: `The corridor suddenly locks down.
+
+Nived is trapped between the security doors.
+
+CAUSE OF DEATH:
+Crushing injuries.`
+},
+
+{
+text: "Use his social skills to make her reveal the truth",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE PHONE",
-text:
-`The girl gives Nived a phone.
+
+text: `The girl gives Nived a phone.
 
 "There is one recording."
 
@@ -655,16 +1050,44 @@ The screen shows:
 ROOM 13 — FINAL RECORDING.`,
 
 choices: [
-["Destroy the phone", "death", "The phone breaks.\n\nAn emergency system activates throughout the building.\n\nCAUSE OF DEATH: Security system attack."],
-["Call the police", "death", "The call connects.\n\nBut someone else is listening.\n\nThe watcher locates Nived.\n\nCAUSE OF DEATH: Fatal attack."],
-["Listen to the final recording", "next"]
+
+{
+text: "Destroy the phone",
+type: "death",
+death: `The phone breaks.
+
+An emergency system activates throughout the building.
+
+CAUSE OF DEATH:
+Security system attack.`
+},
+
+{
+text: "Call the police",
+type: "death",
+death: `The call connects.
+
+But someone else is listening.
+
+The watcher locates Nived.
+
+CAUSE OF DEATH:
+Fatal attack.`
+},
+
+{
+text: "Listen to the final recording",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE BETRAYAL",
-text:
-`The recording reveals the truth.
+
+text: `The recording reveals the truth.
 
 The girl was trapped here years ago.
 
@@ -673,16 +1096,42 @@ She isn't trying to kill Nived.
 She's trying to escape.`,
 
 choices: [
-["Try to charm her", "death", "Nived's charm doesn't work this time.\n\nThe girl steps away and the trap activates.\n\nCAUSE OF DEATH: Fatal trap."],
-["Attack immediately", "death", "Nived attacks.\n\nThe floor suddenly opens beneath him.\n\nCAUSE OF DEATH: Fatal fall."],
-["Talk and discover why she is here", "next"]
+
+{
+text: "Try to charm her",
+type: "death",
+death: `Nived's charm doesn't work this time.
+
+The girl steps away and the trap activates.
+
+CAUSE OF DEATH:
+Fatal trap.`
+},
+
+{
+text: "Attack immediately",
+type: "death",
+death: `Nived attacks.
+
+The floor suddenly opens beneath him.
+
+CAUSE OF DEATH:
+Fatal fall.`
+},
+
+{
+text: "Talk and discover why she is here",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE EXIT",
-text:
-`The girl shows Nived the final door.
+
+text: `The girl shows Nived the final door.
 
 It opens only when someone chooses to trust another person.
 
@@ -691,15 +1140,47 @@ The girl looks at him.
 "Your choice."`,
 
 choices: [
-["Leave her behind", "death", "Nived reaches the exit.\n\nBut it was a false exit.\n\nThe door closes permanently.\n\nCAUSE OF DEATH: Entrapment."],
-["Force her to go first", "death", "The girl enters the doorway.\n\nThe door closes before Nived can follow.\n\nHe is trapped inside.\n\nCAUSE OF DEATH: Entrapment."],
-["Trust her", "ending"]
+
+{
+text: "Leave her behind",
+type: "death",
+death: `Nived reaches the exit.
+
+But it was a false exit.
+
+The door closes permanently.
+
+CAUSE OF DEATH:
+Entrapment.`
+},
+
+{
+text: "Force her to go first",
+type: "death",
+death: `The girl enters the doorway.
+
+The door closes before Nived can follow.
+
+CAUSE OF DEATH:
+Entrapment.`
+},
+
+{
+text: "Trust her",
+type: "ending"
+}
+
 ]
+
 }
 
 ]
 
 },
+
+
+
+/* ================= ROHIT ================= */
 
 rohit: {
 
@@ -709,27 +1190,59 @@ parts: [
 
 {
 title: "LOCKDOWN",
-text:
-`Rohit enters the building.
+
+text: `Rohit enters the building.
 
 The doors suddenly lock.
 
 A digital screen appears.
 
 EMERGENCY LOCKDOWN.
-TIME REMAINING: 30 MINUTES.`,
+
+TIME REMAINING:
+30 MINUTES.`,
 
 choices: [
-["Break the main door", "death", "Rohit breaks the door.\n\nThe security system detects the force and activates the lockdown.\n\nCAUSE OF DEATH: Security system attack."],
-["Read the entire emergency manual", "death", "Rohit starts reading every page.\n\nHe keeps studying.\n\nThe timer reaches zero.\n\nCAUSE OF DEATH: Lockdown failure."],
-["Study the building layout and find the hidden exit", "next"]
+
+{
+text: "Break the main door",
+type: "death",
+death: `Rohit breaks the door.
+
+The security system detects the force.
+
+The lockdown becomes permanent.
+
+CAUSE OF DEATH:
+Security system attack.`
+},
+
+{
+text: "Read the entire emergency manual",
+type: "death",
+death: `Rohit starts reading every page.
+
+He keeps studying.
+
+The timer reaches zero.
+
+CAUSE OF DEATH:
+Lockdown failure.`
+},
+
+{
+text: "Study the building layout and find the hidden exit",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE CORRIDOR",
-text:
-`Rohit enters a corridor.
+
+text: `Rohit enters a corridor.
 
 Ten doors.
 
@@ -740,16 +1253,42 @@ He notices something strange.
 The numbers repeat.`,
 
 choices: [
-["Keep walking", "death", "The corridor repeats endlessly.\n\nRohit becomes trapped inside the loop.\n\nCAUSE OF DEATH: Permanent entrapment."],
-["Run randomly", "death", "Rohit runs through the first open door.\n\nThe floor disappears.\n\nCAUSE OF DEATH: Fatal fall."],
-["Recognize the pattern", "next"]
+
+{
+text: "Keep walking",
+type: "death",
+death: `The corridor repeats endlessly.
+
+Rohit becomes trapped inside the loop.
+
+CAUSE OF DEATH:
+Permanent entrapment.`
+},
+
+{
+text: "Run randomly",
+type: "death",
+death: `Rohit runs through the first open door.
+
+The floor disappears.
+
+CAUSE OF DEATH:
+Fatal fall.`
+},
+
+{
+text: "Recognize the pattern",
+type: "next"
+}
+
 ]
+
 },
 
 {
 title: "THE CLASSROOM",
-text:
-`Rohit finds a classroom.
+
+text: `Rohit finds a classroom.
 
 A textbook sits open on the desk.
 
@@ -758,112 +1297,47 @@ One page contains the information he needs.
 But the rest of the book contains hundreds of pages.`,
 
 choices: [
-["Read the entire book", "death", "Rohit starts studying every page.\n\nMinutes disappear.\n\nThe classroom locks.\n\nCAUSE OF DEATH: Lockdown."],
-["Ignore the textbook", "death", "Rohit chooses the wrong door.\n\nThe security system activates.\n\nCAUSE OF DEATH: Fatal security trap."],
-["Find only the relevant information", "next"]
-]
+
+{
+text: "Read the entire book",
+type: "death",
+death: `Rohit starts studying every page.
+
+Minutes disappear.
+
+The classroom locks.
+
+CAUSE OF DEATH:
+Lockdown.`
 },
 
 {
-title: "THE TIMER",
-text:
-`The timer shows:
+text: "Ignore the textbook",
+type: "death",
+death: `Rohit chooses the wrong door.
 
-00:04:17
+The security system activates.
 
-Rohit reaches the final corridor.
+CAUSE OF DEATH:
+Fatal security trap.`
+},
 
-A hidden escape route is nearby.`,
-
-choices: [
-["Solve every puzzle", "death", "Rohit tries to solve everything.\n\nThe timer reaches zero.\n\nCAUSE OF DEATH: Lockdown."],
-["Panic and run", "death", "Rohit runs without checking the route.\n\nThe security doors close around him.\n\nCAUSE OF DEATH: Crushing injuries."],
-["Use the escape route", "ending"]
-]
+{
+text: "Find only the relevant information",
+type: "next"
 }
 
 ]
 
 },
 
-ashish: {
-
-name: "ASHISH K SIBI — THE SINGER",
-
-parts: [
-
 {
-title: "THE VOICE",
-text:
-`Ashish enters the old auditorium.
+title: "THE TIMER",
 
-Nobody is there.
+text: `The timer shows:
 
-Then he hears singing.
+00:04:17
 
-A voice is singing the exact melody he knows.
+Rohit reaches the final corridor.
 
-But the voice isn't human.`,
-
-choices: [
-["Sing louder", "death", "The second voice becomes louder.\n\nThe auditorium doors slam shut.\n\nCAUSE OF DEATH: Fatal supernatural attack."],
-["Run away", "death", "Ashish runs backstage.\n\nThe mirrors begin moving.\n\nHe disappears behind them.\n\nCAUSE OF DEATH: Supernatural entrapment."],
-["Match the melody", "next"]
-]
-},
-
-{
-title: "THE RECORDING",
-text:
-`A recording begins playing.
-
-It contains Ashish's own voice.
-
-But he never recorded it.
-
-The song continues.`,
-
-choices: [
-["Stop the recording", "death", "The recording stops.\n\nEvery door in the auditorium locks.\n\nCAUSE OF DEATH: Entrapment."],
-["Destroy it", "death", "The recording continues through every speaker.\n\nThe voice takes control of the room.\n\nCAUSE OF DEATH: Fatal supernatural attack."],
-["Listen until the end", "next"]
-]
-},
-
-{
-title: "THE THREE NOTES",
-text:
-`Three notes play.
-
-The door has three symbols.
-
-Ashish understands.
-
-He has to reproduce the melody.`,
-
-choices: [
-["Guess the notes", "death", "The wrong note activates the sound trap.\n\nCAUSE OF DEATH: Fatal sonic attack."],
-["Sing randomly", "death", "The door remains locked.\n\nThe voice behind him gets closer.\n\nCAUSE OF DEATH: Fatal attack."],
-["Reproduce the melody", "next"]
-]
-},
-
-{
-title: "THE SLEEP",
-text:
-`The final recording begins.
-
-Ashish is exhausted.
-
-His eyes are getting heavier.
-
-The voice whispers:
-
-"Sleep."`,
-
-choices: [
-["Sleep", "death", "Ashish closes his eyes.\n\nHe wakes inside the recording and can never leave.\n\nCAUSE OF DEATH: Permanent supernatural entrapment."],
-["Follow the voice", "death", "Ashish follows the
-<script>
-alert("JavaScript is working!");
-</script>
+A hidden escape route is
