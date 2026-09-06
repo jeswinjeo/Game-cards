@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Character Collection</title>
+<title>The Last Period</title>
 
 <style>
 * {
@@ -13,277 +13,354 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: #080808;
+    background:
+        radial-gradient(circle at top, #171717, #050505 65%);
     color: white;
     font-family: Arial, sans-serif;
-    padding: 25px 15px;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: clamp(25px, 6vw, 45px);
-    letter-spacing: 3px;
-}
+/* =========================
+   GENERAL
+========================= */
 
-.cards {
-    max-width: 1200px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
-
-/* CARD */
-.card {
-    height: 620px;
-    perspective: 1200px;
+button {
+    font-family: inherit;
     cursor: pointer;
 }
 
-.card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 25px 15px;
 }
 
-.card.open .card-inner {
-    transform: rotateY(180deg);
-}
-
-.card-front,
-.card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 22px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    overflow: hidden;
-}
-
-/* FRONT */
-.card-front {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 25px;
-    background: linear-gradient(145deg, #111, #050505);
-}
-
-.front-icon {
-    font-size: 75px;
-    margin-bottom: 25px;
-}
-
-.front-title {
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.tap {
-    margin-top: 25px;
-    font-size: 13px;
-    opacity: 0.6;
-    letter-spacing: 2px;
-}
-
-/* BACK */
-.card-back {
-    transform: rotateY(180deg);
-    background: #101010;
-    padding-bottom: 20px;
-    overflow-y: auto;
-}
-
-.photo {
-    width: 100%;
-    height: 285px;
-    object-fit: cover;
+.screen.active {
     display: block;
 }
 
-.info {
-    padding: 20px;
-}
-
-.name {
+.title {
     text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size: clamp(30px, 8vw, 55px);
+    letter-spacing: 4px;
+    margin: 15px 0 8px;
 }
 
-.nickname {
+.subtitle {
     text-align: center;
-    font-size: 14px;
-    opacity: 0.7;
-    margin-bottom: 20px;
+    color: #888;
+    margin-bottom: 35px;
 }
 
-.stat {
-    margin: 13px 0;
+/* =========================
+   CHARACTER SELECT
+========================= */
+
+.character-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-.stat-name {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-.bar {
-    width: 100%;
-    height: 9px;
-    background: #292929;
+.character-card {
+    height: 420px;
+    background: #101010;
     border-radius: 20px;
     overflow: hidden;
+    border: 2px solid #333;
+    transition: 0.25s;
 }
 
-.fill {
-    height: 100%;
-    border-radius: 20px;
+.character-card:hover {
+    transform: translateY(-5px);
 }
 
-.weakness {
-    margin-top: 22px;
-    padding: 13px;
+.character-card img {
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+}
+
+.character-info {
+    padding: 15px;
     text-align: center;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.05);
-    font-size: 14px;
 }
 
-/* ACHAYAN - GOLD */
-.achayan .card-front,
-.achayan .card-back {
-    border: 2px solid gold;
-    box-shadow: 0 0 25px rgba(255,215,0,0.45);
+.character-info h2 {
+    margin: 5px 0;
 }
 
-.achayan .front-title,
-.achayan .name {
+.character-info p {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.play-button {
+    border: 0;
+    padding: 11px 25px;
+    border-radius: 10px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Character colours */
+
+.achayan-card {
+    border-color: gold;
+    box-shadow: 0 0 20px rgba(255,215,0,.25);
+}
+
+.achayan-card h2 {
     color: gold;
 }
 
-.achayan .fill {
-    background: gold;
+.nived-card {
+    border-color: #00e676;
+    box-shadow: 0 0 20px rgba(0,230,118,.25);
 }
 
-/* NIVED - EMERALD */
-.nived .card-front,
-.nived .card-back {
-    border: 2px solid #00e676;
-    box-shadow: 0 0 25px rgba(0,230,118,0.4);
-}
-
-.nived .front-title,
-.nived .name {
+.nived-card h2 {
     color: #00e676;
 }
 
-.nived .fill {
-    background: #00e676;
+.rohit-card {
+    border-color: #2196f3;
+    box-shadow: 0 0 20px rgba(33,150,243,.25);
 }
 
-/* ROHIT - BLUE */
-.rohit .card-front,
-.rohit .card-back {
-    border: 2px solid #2196f3;
-    box-shadow: 0 0 25px rgba(33,150,243,0.45);
-}
-
-.rohit .front-title,
-.rohit .name {
+.rohit-card h2 {
     color: #2196f3;
 }
 
-.rohit .fill {
-    background: #2196f3;
+.ashish-card {
+    border-color: #ff1744;
+    box-shadow: 0 0 20px rgba(255,23,68,.25);
 }
 
-/* ASHISH - RED */
-.ashish .card-front,
-.ashish .card-back {
-    border: 2px solid #ff1744;
-    box-shadow: 0 0 25px rgba(255,23,68,0.45);
-}
-
-.ashish .front-title,
-.ashish .name {
+.ashish-card h2 {
     color: #ff1744;
 }
 
-.ashish .fill {
-    background: #ff1744;
+.aswin-card {
+    border-color: #ff6d00;
+    box-shadow: 0 0 20px rgba(255,109,0,.25);
 }
 
-/* ASWIN - ORANGE */
-.aswin .card-front,
-.aswin .card-back {
-    border: 2px solid #ff6d00;
-    box-shadow: 0 0 25px rgba(255,109,0,0.45);
-}
-
-.aswin .front-title,
-.aswin .name {
+.aswin-card h2 {
     color: #ff6d00;
 }
 
-.aswin .fill {
-    background: #ff6d00;
+.jj-card {
+    border-color: #777;
+    opacity: .7;
 }
 
-/* JJ - BLACK / MYSTERY */
-.jj .card-front,
-.jj .card-back {
-    border: 2px solid #777;
-    box-shadow: 0 0 25px rgba(255,255,255,0.2);
-    background: linear-gradient(145deg, #050505, #151515);
-}
-
-.jj .front-title,
-.jj .name {
-    color: white;
-}
-
-.jj .fill {
-    background: #777;
-}
-
-.question {
+.jj-card h2 {
     color: #aaa;
 }
 
-/* TABLET */
-@media (max-width: 950px) {
-    .cards {
+/* =========================
+   STORY
+========================= */
+
+.story-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.story-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.story-character {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #999;
+}
+
+.part-number {
+    font-size: 14px;
+    color: #888;
+    margin-top: 8px;
+}
+
+.story-box {
+    background: rgba(20,20,20,.95);
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 25px;
+    line-height: 1.8;
+    box-shadow: 0 0 30px rgba(0,0,0,.5);
+}
+
+.story-box h2 {
+    margin-top: 0;
+}
+
+.story-text {
+    color: #ddd;
+    white-space: pre-line;
+}
+
+.message {
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 3px solid currentColor;
+    background: rgba(255,255,255,.04);
+    font-style: italic;
+}
+
+.choices {
+    margin-top: 25px;
+    display: grid;
+    gap: 12px;
+}
+
+.choice {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #444;
+    background: #171717;
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    transition: .2s;
+}
+
+.choice:hover {
+    background: #252525;
+    transform: translateX(4px);
+}
+
+.back-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background: transparent;
+    color: #aaa;
+}
+
+/* =========================
+   DEATH
+========================= */
+
+.death-screen {
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    padding-top: 12vh;
+}
+
+.death-icon {
+    font-size: 80px;
+}
+
+.death-title {
+    color: #ff3333;
+    font-size: clamp(35px, 9vw, 60px);
+    margin: 15px 0;
+}
+
+.death-character {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.death-box {
+    background: #130909;
+    border: 1px solid #6b2020;
+    border-radius: 18px;
+    padding: 25px;
+    line-height: 1.8;
+}
+
+.cause {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ff5555;
+}
+
+.restart-button {
+    margin-top: 25px;
+    padding: 14px 35px;
+    border: 0;
+    border-radius: 12px;
+    background: #ff3333;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* =========================
+   ENDING
+========================= */
+
+.ending-screen {
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    padding-top: 12vh;
+}
+
+.ending-icon {
+    font-size: 75px;
+}
+
+.ending-title {
+    font-size: clamp(35px, 9vw, 55px);
+    margin: 15px 0;
+}
+
+.ending-box {
+    background: #111;
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 25px;
+    line-height: 1.9;
+}
+
+.home-button {
+    margin-top: 25px;
+    padding: 13px 30px;
+    border-radius: 12px;
+    border: 0;
+    background: white;
+    color: black;
+    font-weight: bold;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 850px) {
+    .character-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
-    body {
-        padding: 15px 10px;
-    }
-
-    .cards {
+@media(max-width: 550px) {
+    .character-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
 
-    .card {
-        height: 600px;
+    .character-card {
+        height: 400px;
     }
 
-    .photo {
-        height: 270px;
+    .character-card img {
+        height: 220px;
+    }
+
+    .story-box {
+        padding: 20px;
     }
 }
 </style>
@@ -291,295 +368,509 @@ h1 {
 
 <body>
 
-<h1>⚔️ CHARACTER COLLECTION ⚔️</h1>
+<!-- =====================================================
+     CHARACTER SELECT
+===================================================== -->
 
-<div class="cards">
+<section id="selectScreen" class="screen active">
 
-<!-- ACHAYAN -->
-<div class="card achayan" onclick="this.classList.toggle('open')">
-<div class="card-inner">
+    <h1 class="title">THE LAST PERIOD</h1>
+    <p class="subtitle">Choose your character</p>
 
-<div class="card-front">
-    <div class="front-icon">👑</div>
-    <div class="front-title">ACHAYAN</div>
-    <div class="tap">TAP TO REVEAL</div>
-</div>
+    <div class="character-grid">
 
-<div class="card-back">
-    <img src="achayan.jpg" class="photo">
-
-    <div class="info">
-        <div class="name">ACHAYAN</div>
-        <div class="nickname">ELDOW ROSHAN</div>
-
-        <div class="stat">
-            <div class="stat-name"><span>💪 Strength</span><span>99</span></div>
-            <div class="bar"><div class="fill" style="width:99%"></div></div>
+        <!-- ACHAYAN -->
+        <div class="character-card achayan-card">
+            <img src="achayan.jpg">
+            <div class="character-info">
+                <h2>👑 ACHAYAN</h2>
+                <p>ELDOW ROSHAN</p>
+                <p>Strength 99 • Agility 42 • Intelligence 74 • Chaos 97</p>
+                <p>Weakness: 🍺 Beer</p>
+                <button class="play-button" onclick="startGame('achayan')">
+                    PLAY
+                </button>
+            </div>
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>⚡ Agility</span><span>42</span></div>
-            <div class="bar"><div class="fill" style="width:42%"></div></div>
+        <!-- NIVED -->
+        <div class="character-card nived-card">
+            <img src="nived.jpg">
+            <div class="character-info">
+                <h2>💚 NIVED C</h2>
+                <p>LADY MAGNET</p>
+                <p>Strength 76 • Agility 84 • Intelligence 81 • Rizz 100</p>
+                <p>Weakness: 👩 Girls</p>
+                <button class="play-button" onclick="startGame('nived')">
+                    PLAY
+                </button>
+            </div>
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>🧠 Intelligence</span><span>74</span></div>
-            <div class="bar"><div class="fill" style="width:74%"></div></div>
+        <!-- ROHIT -->
+        <div class="character-card rohit-card">
+            <img src="rohit.jpg">
+            <div class="character-info">
+                <h2>🎓 ROHIT VINCENT</h2>
+                <p>PROFESSIONAL BUNKER</p>
+                <p>Strength 88 • Agility 85 • Intelligence 94 • Escape 100</p>
+                <p>Weakness: 📚 Studying Too Much</p>
+                <button class="play-button" onclick="startGame('rohit')">
+                    PLAY
+                </button>
+            </div>
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>🌪️ Chaos</span><span>97</span></div>
-            <div class="bar"><div class="fill" style="width:97%"></div></div>
+        <!-- ASHISH -->
+        <div class="character-card ashish-card">
+            <img src="ashish.jpg">
+            <div class="character-info">
+                <h2>🎤 ASHISH K SIBI</h2>
+                <p>THE SINGER</p>
+                <p>Strength 84 • Agility 87 • Intelligence 81 • Singing 100</p>
+                <p>Weakness: 😴 Lack of Sleep</p>
+                <button class="play-button" onclick="startGame('ashish')">
+                    PLAY
+                </button>
+            </div>
         </div>
 
-        <div class="weakness">⚠️ Weakness: 🐻 Bears</div>
+        <!-- ASWIN -->
+        <div class="character-card aswin-card">
+            <img src="aswin.jpg">
+            <div class="character-info">
+                <h2>🕶️ ASWIN SINU</h2>
+                <p>THE WILDCARD</p>
+                <p>Strength 91 • Agility 89 • Intelligence 86 • Danger 98</p>
+                <p>Weakness: 🎬 Spoilers</p>
+                <button class="play-button" onclick="startGame('aswin')">
+                    PLAY
+                </button>
+            </div>
+        </div>
+
+        <!-- JJ - NOT PLAYABLE -->
+        <div class="character-card jj-card">
+            <img src="jeswin.jpg">
+            <div class="character-info">
+                <h2>❓ JESWIN JEO</h2>
+                <p>JJ</p>
+                <p>Strength ??? • Agility ??? • Intelligence ???</p>
+                <p>NOT PLAYABLE</p>
+            </div>
+        </div>
+
     </div>
-</div>
-
-</div>
-</div>
+</section>
 
 
-<!-- NIVED -->
-<div class="card nived" onclick="this.classList.toggle('open')">
-<div class="card-inner">
+<!-- =====================================================
+     STORY SCREEN
+===================================================== -->
 
-<div class="card-front">
-    <div class="front-icon">💚</div>
-    <div class="front-title">LADY MAGNET</div>
-    <div class="tap">TAP TO REVEAL</div>
-</div>
+<section id="storyScreen" class="screen">
 
-<div class="card-back">
-    <img src="nived.jpg" class="photo">
+    <div class="story-container">
 
-    <div class="info">
-        <div class="name">NIVED C</div>
-        <div class="nickname">LADY MAGNET</div>
-
-        <div class="stat">
-            <div class="stat-name"><span>💪 Strength</span><span>76</span></div>
-            <div class="bar"><div class="fill" style="width:76%"></div></div>
+        <div class="story-header">
+            <div id="storyCharacter" class="story-character"></div>
+            <div id="partNumber" class="part-number"></div>
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>⚡ Agility</span><span>84</span></div>
-            <div class="bar"><div class="fill" style="width:84%"></div></div>
+        <div class="story-box">
+
+            <h2 id="storyTitle"></h2>
+
+            <div id="storyText" class="story-text"></div>
+
+            <div id="storyMessage" class="message"></div>
+
+            <div id="choices" class="choices"></div>
+
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>🧠 Intelligence</span><span>81</span></div>
-            <div class="bar"><div class="fill" style="width:81%"></div></div>
-        </div>
+        <button class="back-button" onclick="goHome()">
+            ← CHARACTER SELECT
+        </button>
 
-        <div class="stat">
-            <div class="stat-name"><span>😎 Rizz</span><span>100</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
-
-        <div class="weakness">⚠️ Weakness: 👩 Girls</div>
     </div>
-</div>
 
-</div>
-</div>
+</section>
 
 
-<!-- ROHIT -->
-<div class="card rohit" onclick="this.classList.toggle('open')">
-<div class="card-inner">
+<!-- =====================================================
+     DEATH SCREEN
+===================================================== -->
 
-<div class="card-front">
-    <div class="front-icon">🎓</div>
-    <div class="front-title">PROFESSIONAL BUNKER</div>
-    <div class="tap">TAP TO REVEAL</div>
-</div>
+<section id="deathScreen" class="screen">
 
-<div class="card-back">
-    <img src="rohit.jpg" class="photo">
+    <div class="death-screen">
 
-    <div class="info">
-        <div class="name">ROHIT VINCENT</div>
-        <div class="nickname">PROFESSIONAL BUNKER</div>
+        <div class="death-icon">☠️</div>
 
-        <div class="stat">
-            <div class="stat-name"><span>💪 Strength</span><span>88</span></div>
-            <div class="bar"><div class="fill" style="width:88%"></div></div>
+        <div class="death-title">DEATH</div>
+
+        <div id="deathCharacter" class="death-character"></div>
+
+        <div class="death-box">
+
+            <div id="deathText"></div>
+
+            <div id="deathCause" class="cause"></div>
+
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>⚡ Agility</span><span>85</span></div>
-            <div class="bar"><div class="fill" style="width:85%"></div></div>
-        </div>
+        <button class="restart-button" onclick="restartGame()">
+            🔄 RESTART STORY
+        </button>
 
-        <div class="stat">
-            <div class="stat-name"><span>🧠 Intelligence</span><span>94</span></div>
-            <div class="bar"><div class="fill" style="width:94%"></div></div>
-        </div>
+        <br>
 
-        <div class="stat">
-            <div class="stat-name"><span>🏃 Escape Rate</span><span>100</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+        <button class="back-button" onclick="goHome()">
+            CHARACTER SELECT
+        </button>
 
-        <div class="weakness">⚠️ Weakness: 📚 Studying Too Much</div>
     </div>
-</div>
 
-</div>
-</div>
+</section>
 
 
-<!-- ASHISH -->
-<div class="card ashish" onclick="this.classList.toggle('open')">
-<div class="card-inner">
+<!-- =====================================================
+     ENDING SCREEN
+===================================================== -->
 
-<div class="card-front">
-    <div class="front-icon">🎤</div>
-    <div class="front-title">THE SINGER</div>
-    <div class="tap">TAP TO REVEAL</div>
-</div>
+<section id="endingScreen" class="screen">
 
-<div class="card-back">
-    <img src="ashish.jpg" class="photo">
+    <div class="ending-screen">
 
-    <div class="info">
-        <div class="name">ASHISH K SIBI</div>
-        <div class="nickname">THE SINGER</div>
+        <div class="ending-icon">🏆</div>
 
-        <div class="stat">
-            <div class="stat-name"><span>💪 Strength</span><span>84</span></div>
-            <div class="bar"><div class="fill" style="width:84%"></div></div>
+        <div id="endingTitle" class="ending-title">
+            SURVIVOR
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>⚡ Agility</span><span>87</span></div>
-            <div class="bar"><div class="fill" style="width:87%"></div></div>
+        <div class="ending-box">
+            <div id="endingText"></div>
         </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>🧠 Intelligence</span><span>81</span></div>
-            <div class="bar"><div class="fill" style="width:81%"></div></div>
-        </div>
+        <button class="home-button" onclick="goHome()">
+            CHARACTER SELECT
+        </button>
 
-        <div class="stat">
-            <div class="stat-name"><span>🎤 Singing</span><span>100</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
-
-        <div class="weakness">⚠️ Weakness: 😴 Lack of Sleep</div>
     </div>
-</div>
 
-</div>
-</div>
+</section>
 
 
-<!-- ASWIN -->
-<div class="card aswin" onclick="this.classList.toggle('open')">
-<div class="card-inner">
+<script>
 
-<div class="card-front">
-    <div class="front-icon">🕶️</div>
-    <div class="front-title">THE WILDCARD</div>
-    <div class="tap">TAP TO REVEAL</div>
-</div>
+/* =====================================================
+   GAME STATE
+===================================================== */
 
-<div class="card-back">
-    <img src="aswin.jpg" class="photo">
-
-    <div class="info">
-        <div class="name">ASWIN SINU</div>
-        <div class="nickname">THE WILDCARD</div>
-
-        <div class="stat">
-            <div class="stat-name"><span>💪 Strength</span><span>91</span></div>
-            <div class="bar"><div class="fill" style="width:91%"></div></div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-name"><span>⚡ Agility</span><span>89</span></div>
-            <div class="bar"><div class="fill" style="width:89%"></div></div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-name"><span>🧠 Intelligence</span><span>86</span></div>
-            <div class="bar"><div class="fill" style="width:86%"></div></div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-name"><span>⚠️ Danger</span><span>98</span></div>
-            <div class="bar"><div class="fill" style="width:98%"></div></div>
-        </div>
-
-        <div class="weakness">⚠️ Weakness: 🎬 Spoilers</div>
-    </div>
-</div>
-
-</div>
-</div>
+let currentCharacter = "";
+let currentPart = 1;
 
 
-<!-- JESWIN / JJ -->
-<div class="card jj" onclick="this.classList.toggle('open')">
-<div class="card-inner">
+/* =====================================================
+   CHARACTER INFORMATION
+===================================================== */
 
-<div class="card-front">
-    <div class="front-icon">❓</div>
-    <div class="front-title">JJ</div>
-    <div class="tap">TAP TO REVEAL</div>
-</div>
+const characters = {
 
-<div class="card-back">
-    <img src="jeswin.jpg" class="photo">
+    achayan: {
+        name: "ACHAYAN",
+        nickname: "ELDOW ROSHAN",
+        color: "gold"
+    },
 
-    <div class="info">
-        <div class="name">JESWIN JEO</div>
-        <div class="nickname">JJ</div>
+    nived: {
+        name: "NIVED C",
+        nickname: "LADY MAGNET",
+        color: "#00e676"
+    },
 
-        <div class="stat">
-            <div class="stat-name"><span>💪 Strength</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+    rohit: {
+        name: "ROHIT VINCENT",
+        nickname: "PROFESSIONAL BUNKER",
+        color: "#2196f3"
+    },
 
-        <div class="stat">
-            <div class="stat-name"><span>⚡ Agility</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+    ashish: {
+        name: "ASHISH K SIBI",
+        nickname: "THE SINGER",
+        color: "#ff1744"
+    },
 
-        <div class="stat">
-            <div class="stat-name"><span>🧠 Intelligence</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+    aswin: {
+        name: "ASWIN SINU",
+        nickname: "THE WILDCARD",
+        color: "#ff6d00"
+    }
 
-        <div class="stat">
-            <div class="stat-name"><span>🏃 Speed</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+};
 
-        <div class="stat">
-            <div class="stat-name"><span>✨ Aura</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
 
-        <div class="stat">
-            <div class="stat-name"><span>⚠️ Danger</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+/* =====================================================
+   STORY DATA
+===================================================== */
 
-        <div class="stat">
-            <div class="stat-name"><span>🔮 Potential</span><span>???</span></div>
-            <div class="bar"><div class="fill" style="width:100%"></div></div>
-        </div>
+const stories = {
 
-        <div class="weakness">⚠️ Weakness: ❓ Unknown</div>
-    </div>
-</div>
+achayan: [
 
-</div>
-</div>
+{
+title: "THE MESSAGE",
+text:
+"6:13 PM.\n\nAchayan leaves college. His phone suddenly vibrates.\n\nAn unknown number has sent a message.",
+message:
+"\"DON'T GO HOME.\"\n\nA second message appears:\n\n\"ROOM 13. 7:00 PM. COME ALONE.\"",
+choices: [
+    {
+        text: "Go to the old building",
+        death: "Achayan enters the old building through the main entrance. The door suddenly locks behind him. The lights disappear. Something moves toward him in the darkness.",
+        cause: "Cause of death: Attacked by an unknown entity."
+    },
+    {
+        text: "Go to Room 13",
+        next: true
+    },
+    {
+        text: "Call the unknown number",
+        death: "Achayan calls the number. A distorted voice answers. While listening, he steps onto the road without noticing the speeding vehicle.",
+        cause: "Cause of death: Road accident."
+    }
+]
+},
 
-</div>
+{
+title: "THE LOCKED DOOR",
+text:
+"Room 13 isn't on the college map.\n\nAchayan reaches an old corridor and finds a strange metal door with no handle.",
+choices: [
+    {
+        text: "Kick the door open",
+        death: "Achayan uses his enormous strength to kick the door. The impact activates an old mechanism above him. Heavy metal equipment falls from the ceiling.",
+        cause: "Cause of death: Crushed by a falling mechanism."
+    },
+    {
+        text: "Search for another entrance",
+        death: "Achayan finds an abandoned staircase. The moment he steps onto it, the rotten structure collapses.",
+        cause: "Cause of death: Fall through collapsed staircase."
+    },
+    {
+        text: "Look carefully for a hidden mechanism",
+        next: true
+    }
+]
+},
 
-</body>
-</html>
+{
+title: "THE BAR",
+text:
+"Inside the hidden room is a small table.\n\nOn it sits a bottle of beer.\n\nBeside it is a note:",
+message:
+"\"DRINK THIS AND YOU'LL REMEMBER.\"",
+choices: [
+    {
+        text: "Drink the beer",
+        death: "Achayan drinks the mysterious beer. His vision becomes distorted. He loses consciousness and wakes inside a sealed room.",
+        cause: "Cause of death: Poisoned by the mysterious drink."
+    },
+    {
+        text: "Throw the bottle away",
+        death: "The bottle smashes against the wall. A strange smell fills the room. Something hiding inside the building wakes up.",
+        cause: "Cause of death: Attracted the entity."
+    },
+    {
+        text: "Leave the beer untouched and search the room",
+        next: true
+    }
+]
+},
+
+{
+title: "THE CHASE",
+text:
+"A low growl comes from behind Achayan.\n\nA creature emerges from the darkness.\n\nIt starts running toward him.",
+choices: [
+    {
+        text: "Run",
+        death: "Achayan runs as fast as he can, but the creature is much faster. His low agility becomes his weakness.",
+        cause: "Cause of death: Caught during the chase."
+    },
+    {
+        text: "Hide",
+        death: "Achayan hides inside a storage room. He soon realizes there is only one entrance — and the creature is standing outside it.",
+        cause: "Cause of death: Trapped by the creature."
+    },
+    {
+        text: "Stand and fight",
+        next: true
+    }
+]
+},
+
+{
+title: "THE PHOTOGRAPH",
+text:
+"Achayan discovers an old photograph.\n\nSix students stand outside Room 13.\n\nOne face has been completely scratched out.",
+choices: [
+    {
+        text: "Burn the photograph",
+        death: "The photograph catches fire. The flames suddenly spread across the room at impossible speed.",
+        cause: "Cause of death: Trapped in the supernatural fire."
+    },
+    {
+        text: "Tear the photograph",
+        death: "The photograph tears in half. A dark figure appears behind Achayan.",
+        cause: "Cause of death: The scratched-out figure attacked."
+    },
+    {
+        text: "Study the photograph carefully",
+        next: true
+    }
+]
+},
+
+{
+title: "THE CLUE",
+text:
+"Behind the photograph, Achayan discovers a date and a room number.\n\nThe date is ten years old.\n\nThe room number is 13.",
+choices: [
+    {
+        text: "Follow the strange voice",
+        death: "A voice whispers Achayan's name from the corridor. He follows it into a completely dark room. The door closes behind him.",
+        cause: "Cause of death: Lost inside the loop."
+    },
+    {
+        text: "Open the red door",
+        death: "Achayan opens the red door. The room instantly fills with freezing darkness.",
+        cause: "Cause of death: Supernatural trap."
+    },
+    {
+        text: "Follow the photograph's clue",
+        next: true
+    }
+]
+},
+
+{
+title: "THE LOOP",
+text:
+"Achayan finally understands.\n\nRoom 13 isn't really a room.\n\nIt's a loop.\n\nEvery person who enters becomes part of its story.",
+choices: [
+    {
+        text: "Destroy the original photograph",
+        death: "The moment Achayan destroys the photograph, the loop closes permanently around him.",
+        cause: "Cause of death: Trapped inside Room 13 forever."
+    },
+    {
+        text: "Stay inside",
+        death: "Achayan refuses to leave. The room slowly disappears around him.",
+        cause: "Cause of death: Lost inside the Room 13 loop."
+    },
+    {
+        text: "Return the photograph to its original place",
+        ending: true
+    }
+]
+}
+
+],
+
+
+/* =====================================================
+   NIVED
+===================================================== */
+
+nived: [
+
+{
+title: "THE GIRL",
+text:
+"Nived is about to leave college when a girl suddenly approaches him.",
+message:
+"\"You received the message too, didn't you?\"",
+choices: [
+    {
+        text: "Follow her immediately",
+        death: "Nived follows the girl without asking questions. She leads him into an empty classroom and locks the door.",
+        cause: "Cause of death: Betrayed and trapped."
+    },
+    {
+        text: "Ignore her",
+        death: "Nived walks away. Without her information, he takes the wrong route and enters the restricted block.",
+        cause: "Cause of death: Trapped in the restricted block."
+    },
+    {
+        text: "Talk to her and find out what she knows",
+        next: true
+    }
+]
+},
+
+{
+title: "THE LIE",
+text:
+"The girl tells Nived that someone is watching them.\n\nNived notices she's hiding something.",
+choices: [
+    {
+        text: "Trust everything she says",
+        death: "Nived follows her instructions exactly. She sends him into a trap.",
+        cause: "Cause of death: Manipulated into a trap."
+    },
+    {
+        text: "Leave immediately",
+        death: "Nived leaves before hearing the important information. The corridor locks down around him.",
+        cause: "Cause of death: Locked inside the corridor."
+    },
+    {
+        text: "Use his social skills to make her reveal the truth",
+        next: true
+    }
+]
+},
+
+{
+title: "THE PHONE",
+text:
+"The girl gives Nived an old phone.\n\nIt contains videos of Nived walking around the college.\n\nSome were recorded before tonight.",
+choices: [
+    {
+        text: "Destroy the phone",
+        death: "The phone breaks. The lights immediately go out and the emergency doors lock.",
+        cause: "Cause of death: Security trap activated."
+    },
+    {
+        text: "Call the police",
+        death: "The phone isn't connected to the police. Instead, the call alerts whoever is watching them.",
+        cause: "Cause of death: Located by the watcher."
+    },
+    {
+        text: "Listen to the final recording",
+        next: true
+    }
+]
+},
+
+{
+title: "THE BETRAYAL",
+text:
+"The girl suddenly points a weapon at Nived.\n\n\"I'm sorry,\" she says.",
+choices: [
+    {
+        text: "Try to charm her",
+        death: "Nived assumes his charm will work. She doesn't hesitate.",
+        cause: "Cause of death: The girl attacks him."
+    },
+    {
+        text: "Attack immediately",
+        death: "Nived attacks without understanding the situation. The girl activates the trap behind him.",
+        cause: "Cause of death: Trap activated."
+    },
+    {
+        text: "Talk to her and discover why she's doing it",
+        next: true
+    }
+]
