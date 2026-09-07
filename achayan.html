@@ -3,139 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ACHAYAN — The Last Period</title>
+<title>ACHAYAN — The Last Drink</title>
 
 <style>
-    * {
-        box-sizing: border-box;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.game {
+    width: 100%;
+    max-width: 650px;
+    min-height: 600px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    text-align: center;
+}
+
+.top img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #777;
+}
+
+h1 {
+    margin: 10px 0 3px;
+    font-size: 28px;
+}
+
+.nickname {
+    color: #999;
+    font-size: 15px;
+}
+
+.part {
+    margin-top: 25px;
+    color: #777;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.title {
+    font-size: 25px;
+    margin: 8px 0 15px;
+}
+
+.story-box {
+    flex: 1;
+    min-height: 300px;
+    cursor: pointer;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.story-line {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #eee;
+    text-align: center;
+    animation: appear 0.45s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: #080808;
-        color: white;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    .game {
-        width: 100%;
-        max-width: 650px;
-        background: #111;
-        border: 1px solid #333;
-        border-radius: 18px;
-        padding: 25px;
-        box-shadow: 0 0 30px rgba(255,255,255,0.05);
-    }
+.tap {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-top: 25px;
+    animation: blink 1.2s infinite;
+}
 
-    .top {
-        text-align: center;
-        margin-bottom: 20px;
+@keyframes blink {
+    50% {
+        opacity: 0.3;
     }
+}
 
-    .top img {
-        width: 110px;
-        height: 110px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 3px solid #777;
-    }
+.choices {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    animation: appear 0.5s ease;
+}
 
-    h1 {
-        margin: 15px 0 5px;
-        font-size: 30px;
-    }
+.choice {
+    width: 100%;
+    padding: 16px;
+    background: #1b1b1b;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-    .nickname {
-        color: #aaa;
-        font-size: 16px;
-    }
+.choice:hover {
+    background: #292929;
+}
 
-    .part {
-        color: #888;
-        font-size: 14px;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
+.home {
+    margin-top: 12px;
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    color: #777;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-    h2 {
-        font-size: 25px;
-        margin-top: 5px;
-    }
+.death,
+.ending {
+    text-align: center;
+    animation: appear 0.5s ease;
+}
 
-    .story {
-        color: #ddd;
-        font-size: 17px;
-        line-height: 1.7;
-        margin: 20px 0;
-    }
+.death h2 {
+    color: #ff4444;
+    font-size: 32px;
+}
 
-    .choices {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
+.death p,
+.ending p {
+    color: #ccc;
+    line-height: 1.7;
+    font-size: 17px;
+}
 
-    button {
-        width: 100%;
-        padding: 16px;
-        border-radius: 10px;
-        border: 1px solid #444;
-        background: #1b1b1b;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+.cause {
+    margin: 20px 0;
+    padding: 14px;
+    border: 1px solid #633;
+    border-radius: 10px;
+    color: #ff8888;
+}
 
-    button:hover {
-        background: #292929;
-        border-color: #777;
-    }
-
-    .death {
-        text-align: center;
-    }
-
-    .death h2 {
-        color: #ff4444;
-        font-size: 32px;
-    }
-
-    .death p {
-        color: #ccc;
-        line-height: 1.7;
-    }
-
-    .cause {
-        margin-top: 15px;
-        padding: 12px;
-        border: 1px solid #522;
-        border-radius: 10px;
-        color: #ff8888;
-    }
-
-    .ending {
-        text-align: center;
-    }
-
-    .ending h2 {
-        font-size: 32px;
-    }
-
-    .ending p {
-        color: #ddd;
-        line-height: 1.8;
-    }
-
-    .small-btn {
-        margin-top: 12px;
-    }
+.action {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    background: #1b1b1b;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
 </style>
 </head>
 
@@ -148,220 +194,295 @@
 const parts = [
 
 {
-    title: "THE MESSAGE",
-    text: `It is 7:00 PM.
+title: "THE BAR",
 
-The college is almost completely empty.
+lines: [
+"It is late at night.",
+"ACHAYAN — ELDOW ROSHAN — walks into a crowded bar.",
+"He orders a drink and sits alone.",
+"Suddenly, a guy at the next table deliberately knocks his drink onto ACHAYAN.",
+"The guy looks at him and smirks.",
+"\"What are you gonna do about it?\""
+],
 
-ACHAYAN — ELDOW ROSHAN — receives a message from an unknown number.
-
-"ROOM 13. COME ALONE."
-
-He looks at the old college block.
-
-Something feels wrong.`,
-
-    choices: [
-        {
-            text: "Go to the old building",
-            death: "ACHAYAN enters the old building. The door suddenly locks behind him. Something moves in the darkness and attacks him before he can escape.",
-            cause: "Cause of death: Severe head trauma."
-        },
-        {
-            text: "Go to Room 13",
-            next: 1
-        },
-        {
-            text: "Call the unknown number",
-            death: "A distorted voice answers. ACHAYAN becomes distracted while crossing the road. A speeding vehicle appears from nowhere.",
-            cause: "Cause of death: Fatal collision."
-        }
-    ]
+choices: [
+{
+text: "Walk away",
+death: [
+"ACHAYAN decides to walk away.",
+"The guy follows him outside with his friends.",
+"ACHAYAN is surrounded before he can escape."
+],
+cause: "Cause of death: Fatal attack."
+},
+{
+text: "Start arguing",
+death: [
+"The argument gets out of control.",
+"The guy suddenly attacks ACHAYAN.",
+"His friends surround him."
+],
+cause: "Cause of death: Severe physical trauma."
+},
+{
+text: "Stand up and fight",
+next: 1
+}
+]
 },
 
 {
-    title: "THE LOCKED DOOR",
-    text: `ACHAYAN reaches Room 13.
+title: "THE FIRST FIGHT",
 
-The door is locked.
+lines: [
+"The guy throws the first punch.",
+"ACHAYAN blocks it.",
+"One powerful punch sends the guy crashing into a table.",
+"But suddenly...",
+"TWO MORE GUYS JOIN THE FIGHT.",
+"The entire bar goes silent.",
+"ACHAYAN looks at all three of them."
+],
 
-There is no keyhole.
-
-Only a strange symbol is carved into the metal.
-
-He notices something moving behind the walls.`,
-
-    choices: [
-        {
-            text: "Kick the door",
-            death: "ACHAYAN kicks the door. A hidden mechanism activates and heavy metal equipment falls from above.",
-            cause: "Cause of death: Crushing injuries."
-        },
-        {
-            text: "Search another entrance",
-            death: "ACHAYAN finds an abandoned staircase. The rotten structure collapses beneath him.",
-            cause: "Cause of death: Fatal fall."
-        },
-        {
-            text: "Look carefully for a hidden mechanism",
-            next: 2
-        }
-    ]
+choices: [
+{
+text: "Fight all three",
+next: 2
+},
+{
+text: "Run outside",
+death: [
+"ACHAYAN tries to run outside.",
+"One of the men catches him before he reaches the door."
+],
+cause: "Cause of death: Severe physical trauma."
+},
+{
+text: "Grab a bottle",
+death: [
+"ACHAYAN reaches for a bottle.",
+"Before he can use it, the men overpower him."
+],
+cause: "Cause of death: Fatal attack."
+}
+]
 },
 
 {
-    title: "THE BAR",
-    text: `ACHAYAN finds a hidden switch.
+title: "THE BOSS",
 
-The door opens.
+lines: [
+"ACHAYAN knocks down all three men.",
+"The bar becomes completely silent.",
+"Then...",
+"A huge man walks out from the back room.",
+"He looks at the three men lying on the floor.",
+"Then he looks at ACHAYAN.",
+"\"You just beat my boys.\"",
+"He cracks his knuckles.",
+"\"Now you fight me.\""
+],
 
-Inside is a small room with one table.
-
-On the table sits a single bottle of beer.
-
-Beside it is a photograph of Room 13.`,
-
-    choices: [
-        {
-            text: "Drink the beer",
-            death: "ACHAYAN drinks the mysterious beer. His vision fades. The room seals itself completely.",
-            cause: "Cause of death: Poisoning."
-        },
-        {
-            text: "Throw the bottle away",
-            death: "The bottle shatters. A strange smell fills the room. Something wakes up behind ACHAYAN.",
-            cause: "Cause of death: Attack by an unknown entity."
-        },
-        {
-            text: "Leave the beer untouched and search",
-            next: 3
-        }
-    ]
+choices: [
+{
+text: "Fight him head-on",
+next: 3
+},
+{
+text: "Apologize",
+death: [
+"ACHAYAN lowers his guard.",
+"The huge man takes advantage of the moment.",
+"He attacks ACHAYAN."
+],
+cause: "Cause of death: Severe physical trauma."
+},
+{
+text: "Escape through the kitchen",
+death: [
+"ACHAYAN reaches the kitchen.",
+"The exit is locked.",
+"The boss catches him."
+],
+cause: "Cause of death: Fatal attack."
+}
+]
 },
 
 {
-    title: "THE CHASE",
-    text: `The lights suddenly turn off.
+title: "THE CHAMPION",
 
-A creature begins moving through the corridor.
+lines: [
+"The fight begins.",
+"The huge man is incredibly strong.",
+"ACHAYAN takes several heavy hits.",
+"But he refuses to stay down.",
+"His 99 Strength finally shows.",
+"ACHAYAN waits for the perfect moment.",
+"One final powerful punch...",
+"BOOM.",
+"The huge man crashes to the floor.",
+"Everyone in the bar starts shouting.",
+"ACHAYAN has won.",
+"Suddenly...",
+"THE LIGHTS GO OUT."
+],
 
-ACHAYAN hears footsteps getting closer.
-
-He has only seconds to decide.`,
-
-    choices: [
-        {
-            text: "Run",
-            death: "ACHAYAN runs as fast as he can, but the creature is faster. His lack of agility allows it to catch him.",
-            cause: "Cause of death: Severe physical trauma."
-        },
-        {
-            text: "Hide",
-            death: "ACHAYAN hides inside a storage room, but there is no exit. The creature finds him.",
-            cause: "Cause of death: Fatal attack."
-        },
-        {
-            text: "Stand and fight",
-            next: 4
-        }
-    ]
+choices: [
+{
+text: "Keep fighting whoever comes next",
+next: 4
+},
+{
+text: "Run into the darkness",
+death: [
+"ACHAYAN runs blindly through the dark.",
+"He falls into a hidden basement shaft."
+],
+cause: "Cause of death: Fatal fall."
+},
+{
+text: "Hide behind the bar",
+death: [
+"ACHAYAN hides behind the bar.",
+"Something moves in the darkness.",
+"It finds him."
+],
+cause: "Cause of death: Fatal attack."
+}
+]
 },
 
 {
-    title: "THE PHOTOGRAPH",
-    text: `ACHAYAN defeats the creature.
+title: "THE STRANGER",
 
-It disappears.
+lines: [
+"The lights suddenly turn back on.",
+"Everyone is gone.",
+"The three men are gone.",
+"The huge man is gone.",
+"Only one person remains.",
+"A mysterious man sits quietly at the bar.",
+"He slowly turns toward ACHAYAN.",
+"\"You're stronger than I expected.\"",
+"He places a strange key on the table.",
+"Beside it is a bottle of beer."
+],
 
-On the floor is the photograph from the room.
-
-But now there is a face in the photograph.
-
-The face looks exactly like ACHAYAN.`,
-
-    choices: [
-        {
-            text: "Burn the photograph",
-            death: "The photograph catches fire. Instead of burning away, the supernatural flames spread through the room.",
-            cause: "Cause of death: Severe burns."
-        },
-        {
-            text: "Tear the photograph",
-            death: "ACHAYAN tears the photograph. A scratched-out face suddenly appears and attacks him.",
-            cause: "Cause of death: Fatal supernatural attack."
-        },
-        {
-            text: "Study the photograph carefully",
-            next: 5
-        }
-    ]
+choices: [
+{
+text: "Take the key",
+next: 5
+},
+{
+text: "Drink the beer",
+death: [
+"ACHAYAN drinks the mysterious beer.",
+"His vision begins to fade.",
+"The room spins around him."
+],
+cause: "Cause of death: Poisoning."
+},
+{
+text: "Leave the bar",
+death: [
+"ACHAYAN tries to leave.",
+"The doors lock automatically.",
+"The mysterious man disappears."
+],
+cause: "Cause of death: Fatal trap."
+}
+]
 },
 
 {
-    title: "THE CLUE",
-    text: `ACHAYAN notices a tiny symbol hidden behind the photograph.
+title: "THE ROOM",
 
-It points toward a red door.
+lines: [
+"The key opens a hidden door behind the bar.",
+"ACHAYAN enters.",
+"The room is filled with photographs.",
+"Every photograph shows ACHAYAN fighting someone.",
+"Then he notices something strange.",
+"The final photograph shows TOMORROW.",
+"ACHAYAN is standing in this exact room.",
+"But something terrifying is standing behind him."
+],
 
-From somewhere inside the building, a strange voice whispers:
-
-"Come back..."`,
-
-    choices: [
-        {
-            text: "Follow the strange voice",
-            death: "ACHAYAN follows the voice and enters a room that repeats endlessly. Every door leads back to the same place.",
-            cause: "Cause of death: Permanent entrapment."
-        },
-        {
-            text: "Open the red door",
-            death: "The red door opens into complete darkness. Something pulls ACHAYAN inside.",
-            cause: "Cause of death: Fatal supernatural attack."
-        },
-        {
-            text: "Follow the photograph clue",
-            next: 6
-        }
-    ]
+choices: [
+{
+text: "Destroy the photograph",
+death: [
+"ACHAYAN destroys the photograph.",
+"The room suddenly changes.",
+"The creature appears directly in front of him."
+],
+cause: "Cause of death: Fatal supernatural attack."
+},
+{
+text: "Look carefully at the photograph",
+next: 6
+},
+{
+text: "Run without looking back",
+death: [
+"ACHAYAN runs blindly through the room.",
+"The creature predicts his movement.",
+"It catches him."
+],
+cause: "Cause of death: Severe physical trauma."
+}
+]
 },
 
 {
-    title: "THE LOOP",
-    text: `ACHAYAN returns to Room 13.
+title: "THE FINAL FIGHT",
 
-The photograph is hanging exactly where he found it.
+lines: [
+"The photograph falls from ACHAYAN'S hand.",
+"The creature from the photograph appears.",
+"ACHAYAN finally understands.",
+"The entire bar fight was a setup.",
+"The mysterious stranger wanted to find someone strong enough to face this thing.",
+"The creature moves closer.",
+"ACHAYAN clenches his fists.",
+"\"Come on.\""
+],
 
-The building begins shaking.
-
-He realizes the entire place is trapped in a loop.
-
-There is only one way to break it.`,
-
-    choices: [
-        {
-            text: "Destroy the original photograph",
-            death: "The moment ACHAYAN destroys the photograph, the loop closes permanently around him.",
-            cause: "Cause of death: Permanent supernatural entrapment."
-        },
-        {
-            text: "Stay inside",
-            death: "ACHAYAN refuses to leave. Room 13 slowly seals itself around him.",
-            cause: "Cause of death: Permanent entrapment."
-        },
-        {
-            text: "Return the photograph to its original place",
-            ending: true
-        }
-    ]
+choices: [
+{
+text: "Fight",
+ending: true
+},
+{
+text: "Run",
+death: [
+"ACHAYAN turns and runs.",
+"The creature is already waiting for him at the exit."
+],
+cause: "Cause of death: Fatal attack."
+},
+{
+text: "Hide",
+death: [
+"ACHAYAN hides in the room.",
+"But the creature can sense him."
+],
+cause: "Cause of death: Fatal attack."
+}
+]
 }
 
 ];
 
 
 let currentPart = 0;
+let currentLine = 0;
 
 
 function showPart() {
+
+    currentLine = 0;
 
     const part = parts[currentPart];
 
@@ -369,40 +490,82 @@ function showPart() {
 
         <div class="top">
             <img src="achayan.jpg" alt="ACHAYAN">
-
             <h1>ACHAYAN</h1>
-
-            <div class="nickname">
-                ELDOW ROSHAN
-            </div>
+            <div class="nickname">ELDOW ROSHAN</div>
         </div>
 
         <div class="part">
-            Part ${currentPart + 1} / ${parts.length}
+            PART ${currentPart + 1} / ${parts.length}
         </div>
 
-        <h2>${part.title}</h2>
-
-        <div class="story">
-            ${part.text.replace(/\n/g, "<br>")}
+        <div class="title">
+            ${part.title}
         </div>
 
-        <div class="choices">
+        <div class="story-box" onclick="nextLine()">
+
+            <div class="story-line" id="storyLine">
+                ${part.lines[0]}
+            </div>
+
+            <div class="tap" id="tap">
+                TAP TO CONTINUE ▶
+            </div>
+
+        </div>
+
+        <div class="choices" id="choices">
+
             ${part.choices.map((choice, index) => `
-                <button onclick="choose(${index})">
+                <button class="choice" onclick="choose(event, ${index})">
                     ${index + 1}. ${choice.text}
                 </button>
             `).join("")}
+
         </div>
 
-        <button class="small-btn" onclick="goHome()">
+        <button class="home" onclick="goHome()">
             ← Character Select
         </button>
     `;
 }
 
 
-function choose(index) {
+function nextLine() {
+
+    const part = parts[currentPart];
+
+    if (currentLine >= part.lines.length - 1) {
+
+        document.getElementById("tap").style.display = "none";
+
+        document.getElementById("choices").style.display = "flex";
+
+        return;
+    }
+
+    currentLine++;
+
+    const lineElement = document.getElementById("storyLine");
+
+    lineElement.style.animation = "none";
+
+    void lineElement.offsetWidth;
+
+    lineElement.style.animation = "appear 0.45s ease";
+
+    lineElement.innerHTML = part.lines[currentLine];
+
+    if (currentLine === part.lines.length - 1) {
+        document.getElementById("tap").innerHTML =
+            "TAP TO REVEAL CHOICES ▼";
+    }
+}
+
+
+function choose(event, index) {
+
+    event.stopPropagation();
 
     const choice = parts[currentPart].choices[index];
 
@@ -417,11 +580,14 @@ function choose(index) {
     }
 
     currentPart = choice.next;
+
     showPart();
 }
 
 
-function showDeath(message, cause) {
+function showDeath(lines, cause) {
+
+    let lineIndex = 0;
 
     document.getElementById("game").innerHTML = `
 
@@ -429,38 +595,90 @@ function showDeath(message, cause) {
 
             <div class="top">
                 <img src="achayan.jpg" alt="ACHAYAN">
-
                 <h1>ACHAYAN</h1>
-
-                <div class="nickname">
-                    ELDOW ROSHAN
-                </div>
+                <div class="nickname">ELDOW ROSHAN</div>
             </div>
 
             <h2>☠ YOU DIED</h2>
 
-            <p>
-                ${message}
-            </p>
+            <div class="story-box" onclick="nextDeathLine()">
 
-            <div class="cause">
-                ${cause}
+                <div class="story-line" id="deathLine">
+                    ${lines[0]}
+                </div>
+
+                <div class="tap" id="deathTap">
+                    TAP TO CONTINUE ▶
+                </div>
+
             </div>
 
-            <button onclick="restart()">
-                ↻ Restart Story
-            </button>
+            <div id="deathCause" style="display:none">
 
-            <button class="small-btn" onclick="goHome()">
-                ← Character Select
-            </button>
+                <div class="cause">
+                    ${cause}
+                </div>
+
+                <button class="action" onclick="restart()">
+                    ↻ Restart Story
+                </button>
+
+                <button class="action" onclick="goHome()">
+                    ← Character Select
+                </button>
+
+            </div>
 
         </div>
     `;
+
+    window.deathLines = lines;
+    window.deathIndex = lineIndex;
+    window.deathCause = cause;
+}
+
+
+function nextDeathLine() {
+
+    if (window.deathIndex >= window.deathLines.length - 1) {
+
+        document.getElementById("deathTap").style.display = "none";
+        document.getElementById("deathCause").style.display = "block";
+
+        return;
+    }
+
+    window.deathIndex++;
+
+    const line = document.getElementById("deathLine");
+
+    line.style.animation = "none";
+
+    void line.offsetWidth;
+
+    line.style.animation = "appear 0.45s ease";
+
+    line.innerHTML = window.deathLines[window.deathIndex];
 }
 
 
 function showEnding() {
+
+    let lines = [
+        "The fight is brutal.",
+        "ACHAYAN refuses to fall.",
+        "His final punch sends the creature crashing through the wall.",
+        "The mysterious stranger disappears.",
+        "The bar returns to normal.",
+        "ACHAYAN walks outside, covered in bruises.",
+        "His phone lights up.",
+        "\"TEST COMPLETE.\"",
+        "\"SUBJECT: ELDOW ROSHAN\"",
+        "\"RESULT: SURVIVED.\"",
+        "\"WHO'S NEXT?\""
+    ];
+
+    let index = 0;
 
     document.getElementById("game").innerHTML = `
 
@@ -468,57 +686,63 @@ function showEnding() {
 
             <div class="top">
                 <img src="achayan.jpg" alt="ACHAYAN">
-
                 <h1>ACHAYAN</h1>
-
-                <div class="nickname">
-                    ELDOW ROSHAN
-                </div>
+                <div class="nickname">ELDOW ROSHAN</div>
             </div>
 
             <h2>🏆 SURVIVOR</h2>
 
-            <p>
-                Room 13 suddenly disappears.
-            </p>
+            <div class="story-box" onclick="nextEndingLine()">
 
-            <p>
-                ACHAYAN wakes up outside the college.
-            </p>
+                <div class="story-line" id="endingLine">
+                    ${lines[0]}
+                </div>
 
-            <p>
-                The time is exactly <b>7:00 PM.</b>
-            </p>
+                <div class="tap" id="endingTap">
+                    TAP TO CONTINUE ▶
+                </div>
 
-            <p>
-                His phone turns on.
-            </p>
-
-            <p>
-                <b>"SURVIVOR: ACHAYAN"</b>
-            </p>
-
-            <p>
-                The screen goes black.
-            </p>
-
-            <h2>ONE SURVIVED.</h2>
-
-            <button onclick="restart()">
-                ↻ Play Again
-            </button>
-
-            <button class="small-btn" onclick="goHome()">
-                ← Character Select
-            </button>
+            </div>
 
         </div>
     `;
+
+    window.endingLines = lines;
+    window.endingIndex = index;
+}
+
+
+function nextEndingLine() {
+
+    if (window.endingIndex >= window.endingLines.length - 1) {
+
+        document.getElementById("endingTap").style.display = "none";
+
+        document.getElementById("endingLine").innerHTML =
+            "— THE END —<br><br>" +
+            "<button class='action' onclick='restart()'>↻ Play Again</button>" +
+            "<button class='action' onclick='goHome()'>← Character Select</button>";
+
+        return;
+    }
+
+    window.endingIndex++;
+
+    const line = document.getElementById("endingLine");
+
+    line.style.animation = "none";
+
+    void line.offsetWidth;
+
+    line.style.animation = "appear 0.45s ease";
+
+    line.innerHTML = window.endingLines[window.endingIndex];
 }
 
 
 function restart() {
     currentPart = 0;
+    currentLine = 0;
     showPart();
 }
 
