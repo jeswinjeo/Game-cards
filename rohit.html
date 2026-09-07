@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohit Vincent — Professional Bunker</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #080808;
+        color: white;
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .game {
+        width: 100%;
+        max-width: 650px;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .character {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .character img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #444;
+    }
+
+    h1 {
+        margin: 12px 0 4px;
+        font-size: 25px;
+    }
+
+    .title {
+        color: #aaa;
+        font-size: 15px;
+    }
+
+    .part {
+        text-align: center;
+        color: #888;
+        font-size: 14px;
+        margin: 15px 0;
+        letter-spacing: 2px;
+    }
+
+    .story-box {
+        min-height: 230px;
+        background: #111;
+        border: 1px solid #292929;
+        border-radius: 16px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #storyText {
+        font-size: 19px;
+        line-height: 1.7;
+    }
+
+    .appear {
+        animation: appear 0.45s ease;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .tap {
+        text-align: center;
+        color: #777;
+        margin: 15px 0;
+        font-size: 13px;
+        animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+        50% {
+            opacity: 0.35;
+        }
+    }
+
+    .choices {
+        display: none;
+        gap: 12px;
+        flex-direction: column;
+    }
+
+    .choice {
+        background: #181818;
+        color: white;
+        border: 1px solid #444;
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .choice:hover {
+        background: #292929;
+        transform: translateY(-2px);
+    }
+
+    .death {
+        display: none;
+        text-align: center;
+    }
+
+    .death h2 {
+        color: #d33;
+        font-size: 28px;
+    }
+
+    .cause {
+        color: #aaa;
+        margin-top: 15px;
+        font-size: 15px;
+    }
+
+    .ending {
+        display: none;
+        text-align: center;
+    }
+
+    .ending h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .controls {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .controls button {
+        flex: 1;
+        padding: 13px;
+        background: #151515;
+        color: white;
+        border: 1px solid #333;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+        .story-box {
+            min-height: 250px;
+        }
+
+        #storyText {
+            font-size: 17px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <div class="character">
+        <img src="rohit.jpg" alt="Rohit Vincent">
+        <h1>ROHIT VINCENT</h1>
+        <div class="title">PROFESSIONAL BUNKER</div>
+    </div>
+
+    <div id="partTitle" class="part"></div>
+
+    <div id="storyBox" class="story-box" onclick="nextLine()">
+        <div id="storyText"></div>
+    </div>
+
+    <div id="tapText" class="tap">
+        TAP TO CONTINUE ▶
+    </div>
+
+    <div id="choices" class="choices">
+        <button class="choice" onclick="choose(event, 0)"></button>
+        <button class="choice" onclick="choose(event, 1)"></button>
+        <button class="choice" onclick="choose(event, 2)"></button>
+    </div>
+
+    <div id="death" class="death">
+        <h2>☠️ YOU DIED</h2>
+
+        <div id="deathText"></div>
+
+        <div class="cause">
+            Cause of death: <span id="deathCause"></span>
+        </div>
+
+        <div id="deathTap" class="tap" onclick="nextDeathLine()">
+            TAP TO CONTINUE ▶
+        </div>
+    </div>
+
+    <div id="ending" class="ending">
+        <h2>🏁 ESCAPED</h2>
+
+        <div id="endingText"></div>
+
+        <div id="endingTap" class="tap" onclick="nextEndingLine()">
+            TAP TO CONTINUE ▶
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="goHome()">Character Select</button>
+        <button onclick="restart()">Restart Story</button>
+    </div>
+
+</div>
+
+<script>
+
+const parts = [
+
+    {
+        title: "PART 1 — LOCKDOWN 🔒",
+
+        lines: [
+            "Rohit stays late inside college to finish some work.",
+            "Suddenly, every door locks.",
+            "The lights turn red.",
+            "A screen appears: \"BUILDING LOCKDOWN — 30 MINUTES.\"",
+            "Rohit looks around and finds an emergency manual, a locked main door, and a building map."
+        ],
+
+        choices: [
+            "Break the main door",
+            "Read the entire emergency manual",
+            "Study the building map and find a hidden exit"
+        ],
+
+        correct: 2,
+
+        deaths: [
+            "Rohit tries to break the main door.",
+            "The alarm immediately activates.",
+            "Security systems lock the entire area.",
+            "Rohit has nowhere to escape."
+        ],
+
+        deathCauses: [
+            "Security lockdown",
+            "Timer reaches zero",
+            "Fatal security trap"
+        ]
+    },
+
+    {
+        title: "PART 2 — THE CORRIDOR 🚪",
+
+        lines: [
+            "Rohit finds the hidden route.",
+            "He enters a long corridor.",
+            "After walking for several minutes, he notices something strange...",
+            "The same classroom appears again.",
+            "And again.",
+            "And again.",
+            "Rohit realizes the corridor is designed to confuse anyone trying to escape."
+        ],
+
+        choices: [
+            "Keep walking",
+            "Run randomly",
+            "Recognize the pattern and calculate the route"
+        ],
+
+        correct: 2,
+
+        deaths: [
+            "Rohit keeps walking.",
+            "The corridor never ends.",
+            "Every turn brings him back to the same place.",
+            "He realizes he is permanently trapped."
+        ],
+
+        deathCauses: [
+            "Permanent entrapment",
+            "Fatal fall",
+            "Fatal fall"
+        ]
+    },
+
+    {
+        title: "PART 3 — THE CLASSROOM 📚",
+
+        lines: [
+            "Rohit reaches an old classroom.",
+            "Inside are dozens of books and documents.",
+            "One book contains the building's escape system.",
+            "A countdown appears: 12:00.",
+            "Rohit starts searching."
+        ],
+
+        choices: [
+            "Read every book carefully",
+            "Ignore everything and take the nearest exit",
+            "Find only the information needed for the escape system"
+        ],
+
+        correct: 2,
+
+        deaths: [
+            "Rohit decides to read everything.",
+            "Minutes disappear while he studies.",
+            "The classroom doors suddenly lock.",
+            "The timer reaches zero."
+        ],
+
+        deathCauses: [
+            "Studying too much",
+            "Security trap",
+            "Fatal information overload"
+        ]
+    },
+
+    {
+        title: "PART 4 — THE TIMER ⏱️",
+
+        lines: [
+            "Rohit discovers the final escape route.",
+            "But the timer is almost finished.",
+            "01:17.",
+            "Three possible routes appear on the screen.",
+            "Only one is real.",
+            "Rohit studies the clues from the building map and the documents.",
+            "He finally understands it."
+        ],
+
+        choices: [
+            "Solve every puzzle before leaving",
+            "Panic and run toward the nearest door",
+            "Use the calculated escape route"
+        ],
+
+        correct: 2,
+
+        deaths: [
+            "Rohit tries to solve everything.",
+            "The timer keeps counting down.",
+            "00:05...",
+            "00:04...",
+            "00:03...",
+            "The building goes completely dark."
+        ],
+
+        deathCauses: [
+            "Timer reaches zero",
+            "Security doors close",
+            "Fatal lockdown"
+        ]
+    }
+
+];
+
+let currentPart = 0;
+let currentLine = 0;
+
+let deathLines = [];
+let deathLine = 0;
+
+let endingLines = [
+    "Rohit reaches the final door.",
+    "00:03.",
+    "The door opens.",
+    "He steps outside.",
+    "Behind him, every locked door suddenly opens at once.",
+    "Rohit looks back.",
+    "The building is completely empty.",
+    "His phone receives one message:",
+    "\"YOU PASSED.\"",
+    "Rohit smiles.",
+    "PROFESSIONAL BUNKER — ESCAPED."
+];
+
+let endingLine = 0;
+
+
+function showPart() {
+
+    const part = parts[currentPart];
+
+    document.getElementById("partTitle").innerText = part.title;
+
+    document.getElementById("choices").style.display = "none";
+    document.getElementById("tapText").style.display = "block";
+
+    currentLine = 0;
+
+    document.getElementById("storyText").innerText = part.lines[0];
+    document.getElementById("storyText").classList.remove("appear");
+
+    void document.getElementById("storyText").offsetWidth;
+
+    document.getElementById("storyText").classList.add("appear");
+}
+
+
+function nextLine() {
+
+    const part = parts[currentPart];
+
+    if (currentLine < part.lines.length - 1) {
+
+        currentLine++;
+
+        const text = document.getElementById("storyText");
+
+        text.classList.remove("appear");
+        void text.offsetWidth;
+
+        text.innerText = part.lines[currentLine];
+        text.classList.add("appear");
+
+    } else {
+
+        document.getElementById("tapText").style.display = "none";
+        showChoices();
+    }
+}
+
+
+function showChoices() {
+
+    const buttons = document.querySelectorAll(".choice");
+    const part = parts[currentPart];
+
+    buttons.forEach((button, index) => {
+        button.innerText = `${index + 1}️⃣ ${part.choices[index]}`;
+    });
+
+    document.getElementById("choices").style.display = "flex";
+}
+
+
+function choose(event, index) {
+
+    event.stopPropagation();
+
+    const part = parts[currentPart];
+
+    if (index === part.correct) {
+
+        currentPart++;
+
+        if (currentPart < parts.length) {
+
+            showPart();
+
+        } else {
+
+            showEnding();
+        }
+
+    } else {
+
+        showDeath(part, index);
+    }
+}
+
+
+function showDeath(part, index) {
+
+    document.getElementById("storyBox").style.display = "none";
+    document.getElementById("choices").style.display = "none";
+    document.getElementById("tapText").style.display = "none";
+    document.getElementById("partTitle").innerText = "GAME OVER";
+
+    document.getElementById("death").style.display = "block";
+
+    deathLines = part.deaths;
+    deathLine = 0;
+
+    document.getElementById("deathText").innerText = deathLines[0];
+
+    document.getElementById("deathCause").innerText =
+        part.deathCauses[index];
+
+    document.getElementById("deathTap").style.display = "block";
+}
+
+
+function nextDeathLine() {
+
+    if (deathLine < deathLines.length - 1) {
+
+        deathLine++;
+
+        const text = document.getElementById("deathText");
+
+        text.classList.remove("appear");
+        void text.offsetWidth;
+
+        text.innerText = deathLines[deathLine];
+        text.classList.add("appear");
+
+    } else {
+
+        document.getElementById("deathTap").innerText =
+            "TAP TO RESTART ↻";
+
+        document.getElementById("deathTap").onclick = restart;
+    }
+}
+
+
+function showEnding() {
+
+    document.getElementById("storyBox").style.display = "none";
+    document.getElementById("choices").style.display = "none";
+    document.getElementById("tapText").style.display = "none";
+    document.getElementById("death").style.display = "none";
+
+    document.getElementById("partTitle").innerText = "ENDING";
+
+    document.getElementById("ending").style.display = "block";
+
+    endingLine = 0;
+
+    document.getElementById("endingText").innerText =
+        endingLines[0];
+
+    document.getElementById("endingTap").style.display = "block";
+}
+
+
+function nextEndingLine() {
+
+    if (endingLine < endingLines.length - 1) {
+
+        endingLine++;
+
+        const text = document.getElementById("endingText");
+
+        text.classList.remove("appear");
+        void text.offsetWidth;
+
+        text.innerText = endingLines[endingLine];
+        text.classList.add("appear");
+
+    } else {
+
+        document.getElementById("endingTap").innerText =
+            "STORY COMPLETE ✓";
+
+        document.getElementById("endingTap").onclick = null;
+    }
+}
+
+
+function restart() {
+
+    currentPart = 0;
+    currentLine = 0;
+
+    document.getElementById("death").style.display = "none";
+    document.getElementById("ending").style.display = "none";
+
+    document.getElementById("storyBox").style.display = "flex";
+
+    showPart();
+}
+
+
+function goHome() {
+
+    window.location.href = "index.html";
+}
+
+
+showPart();
+
+</script>
+
+</body>
+</html>
