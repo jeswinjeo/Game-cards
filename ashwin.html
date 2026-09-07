@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aswin Sinu — The Wildcard</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    width: 100%;
+    max-width: 650px;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.character {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.character img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #444;
+}
+
+h1 {
+    margin: 12px 0 4px;
+    font-size: 25px;
+}
+
+.title {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.part {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin: 15px 0;
+    letter-spacing: 2px;
+}
+
+.story-box {
+    min-height: 230px;
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+#storyText {
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.appear {
+    animation: appear 0.45s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tap {
+    text-align: center;
+    color: #777;
+    margin: 15px 0;
+    font-size: 13px;
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: 0.35;
+    }
+}
+
+.choices {
+    display: none;
+    gap: 12px;
+    flex-direction: column;
+}
+
+.choice {
+    background: #181818;
+    color: white;
+    border: 1px solid #444;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.choice:hover {
+    background: #292929;
+    transform: translateY(-2px);
+}
+
+.death,
+.ending {
+    display: none;
+    text-align: center;
+}
+
+.death h2 {
+    color: #d33;
+    font-size: 28px;
+}
+
+.ending h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.cause {
+    color: #aaa;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.controls button {
+    flex: 1;
+    padding: 13px;
+    background: #151515;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .story-box {
+        min-height: 250px;
+    }
+
+    #storyText {
+        font-size: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <div class="character">
+        <img src="aswin.jpg" alt="Aswin Sinu">
+
+        <h1>ASWIN SINU</h1>
+
+        <div class="title">
+            THE WILDCARD
+        </div>
+    </div>
+
+    <div id="partTitle" class="part"></div>
+
+    <div
+        id="storyBox"
+        class="story-box"
+        onclick="nextLine()"
+    >
+        <div id="storyText"></div>
+    </div>
+
+    <div id="tapText" class="tap">
+        TAP TO CONTINUE ▶
+    </div>
+
+    <div id="choices" class="choices">
+
+        <button
+            class="choice"
+            onclick="choose(event, 0)"
+        ></button>
+
+        <button
+            class="choice"
+            onclick="choose(event, 1)"
+        ></button>
+
+        <button
+            class="choice"
+            onclick="choose(event, 2)"
+        ></button>
+
+    </div>
+
+    <div id="death" class="death">
+
+        <h2>☠️ YOU DIED</h2>
+
+        <div id="deathText"></div>
+
+        <div class="cause">
+            Cause of death:
+            <span id="deathCause"></span>
+        </div>
+
+        <div
+            id="deathTap"
+            class="tap"
+            onclick="nextDeathLine()"
+        >
+            TAP TO CONTINUE ▶
+        </div>
+
+    </div>
+
+    <div id="ending" class="ending">
+
+        <h2>🎬 THE WILDCARD</h2>
+
+        <div id="endingText"></div>
+
+        <div
+            id="endingTap"
+            class="tap"
+            onclick="nextEndingLine()"
+        >
+            TAP TO CONTINUE ▶
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <button onclick="goHome()">
+            Character Select
+        </button>
+
+        <button onclick="restart()">
+            Restart Story
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const parts = [
+
+    {
+        title: "PART 1 — THE INVITATION 🎟️",
+
+        lines: [
+            "Aswin receives a strange movie ticket on his phone.",
+            "No movie name.",
+            "No theatre name.",
+            "Only one message: \"SHOWTIME — 11:11 PM.\"",
+            "He goes to the theatre.",
+            "Inside, the screen is already playing a movie.",
+            "But Aswin recognizes the actor...",
+            "It is him."
+        ],
+
+        choices: [
+            "Leave immediately",
+            "Keep watching",
+            "Call someone"
+        ],
+
+        correct: 1,
+
+        deaths: [
+            "Aswin turns around and heads for the exit.",
+            "The theatre doors suddenly lock.",
+            "The movie screen goes black.",
+            "Something appears behind him."
+        ],
+
+        deathCauses: [
+            "Fatal supernatural attack",
+            "Unknown fatal attack",
+            "Fatal supernatural attack"
+        ]
+    },
+
+    {
+        title: "PART 2 — THE MOVIE 🎥",
+
+        lines: [
+            "On the screen, Aswin watches himself walking through the exact theatre.",
+            "Every movement happens seconds before he makes it.",
+            "Then the movie shows a door behind him.",
+            "The same door is actually standing behind him.",
+            "A message appears:",
+            "\"DON'T SPOIL THE NEXT SCENE.\""
+        ],
+
+        choices: [
+            "Open the door",
+            "Cover the screen",
+            "Keep watching"
+        ],
+
+        correct: 2,
+
+        deaths: [
+            "Aswin opens the door.",
+            "The room behind it is completely dark.",
+            "The door slams shut.",
+            "The movie continues playing without him."
+        ],
+
+        deathCauses: [
+            "Fatal supernatural trap",
+            "Fatal supernatural attack",
+            "Fatal entrapment"
+        ]
+    },
+
+    {
+        title: "PART 3 — THE SPOILER ⚠️",
+
+        lines: [
+            "The movie reaches its final scene.",
+            "Aswin sees himself entering a dark room.",
+            "Then he sees something standing behind him.",
+            "The screen suddenly freezes.",
+            "A voice says:",
+            "\"You already know what happens next.\"",
+            "Aswin smiles.",
+            "\"I hate spoilers.\""
+        ],
+
+        choices: [
+            "Enter the room exactly like the movie",
+            "Change what happens",
+            "Run out of the theatre"
+        ],
+
+        correct: 1,
+
+        deaths: [
+            "Aswin follows the movie exactly.",
+            "The dark figure appears behind him.",
+            "He realizes the scene was a trap.",
+            "The screen turns completely black."
+        ],
+
+        deathCauses: [
+            "Fatal supernatural attack",
+            "Fatal supernatural attack",
+            "Fatal supernatural trap"
+        ]
+    },
+
+    {
+        title: "PART 4 — THE WILDCARD 🎲",
+
+        lines: [
+            "Aswin refuses to follow the movie.",
+            "The screen glitches.",
+            "The entire theatre begins changing.",
+            "The movie can no longer predict him.",
+            "A figure steps out of the screen.",
+            "It looks exactly like Aswin."
+        ],
+
+        choices: [
+            "Fight the copy",
+            "Run away",
+            "Let the copy attack first"
+        ],
+
+        correct: 0,
+
+        deaths: [
+            "Aswin runs away.",
+            "The copy appears in front of him.",
+            "Every exit disappears.",
+            "The copy makes the final move."
+        ],
+
+        deathCauses: [
+            "Fatal attack",
+            "Fatal supernatural attack",
+            "Fatal supernatural attack"
+        ]
+    },
+
+    {
+        title: "PART 5 — THE FINAL SCENE 🔥",
+
+        lines: [
+            "Aswin fights his copy.",
+            "Every move is predicted.",
+            "Every attack is countered.",
+            "Then Aswin realizes something:",
+            "The copy only knows the movie.",
+            "So he does something completely unexpected.",
+            "He laughs.",
+            "The copy freezes.",
+            "The screen begins to crack."
+        ],
+
+        choices: [
+            "Follow the original movie ending",
+            "Create a completely new ending",
+            "Stop fighting"
+        ],
+
+        correct: 1,
+
+        deaths: [
+            "Aswin follows the original ending.",
+            "The movie knows exactly what he will do.",
+            "The copy takes advantage of the predictable move.",
+            "The screen closes around Aswin."
+        ],
+
+        deathCauses: [
+            "Fatal supernatural attack",
+            "Fatal entrapment",
+            "Fatal supernatural attack"
+        ]
+    }
+
+];
+
+let currentPart = 0;
+let currentLine = 0;
+
+let deathLines = [];
+let deathLine = 0;
+
+const endingLines = [
+
+    "Aswin walks toward the screen.",
+
+    "He grabs the movie reel.",
+
+    "And tears it apart.",
+
+    "The theatre goes completely silent.",
+
+    "The copy disappears.",
+
+    "The screen turns black.",
+
+    "A final message appears:",
+
+    "\"PREDICTION FAILED.\"",
+
+    "Aswin walks outside.",
+
+    "His phone receives one notification:",
+
+    "MOVIE TITLE: UNKNOWN",
+
+    "ENDING: UNKNOWN",
+
+    "Aswin smiles.",
+
+    "\"Now that's a movie.\"",
+
+    "🎬 THE WILDCARD — SURVIVED."
+];
+
+let endingLine = 0;
+
+
+function showPart() {
+
+    const part = parts[currentPart];
+
+    document.getElementById("partTitle").innerText =
+        part.title;
+
+    document.getElementById("choices").style.display =
+        "none";
+
+    document.getElementById("tapText").style.display =
+        "block";
+
+    currentLine = 0;
+
+    const text =
+        document.getElementById("storyText");
+
+    text.classList.remove("appear");
+
+    void text.offsetWidth;
+
+    text.innerText = part.lines[0];
+
+    text.classList.add("appear");
+}
+
+
+function nextLine() {
+
+    const part = parts[currentPart];
+
+    if (currentLine < part.lines.length - 1) {
+
+        currentLine++;
+
+        const text =
+            document.getElementById("storyText");
+
+        text.classList.remove("appear");
+
+        void text.offsetWidth;
+
+        text.innerText =
+            part.lines[currentLine];
+
+        text.classList.add("appear");
+
+    } else {
+
+        document.getElementById("tapText").style.display =
+            "none";
+
+        showChoices();
+    }
+}
+
+
+function showChoices() {
+
+    const buttons =
+        document.querySelectorAll(".choice");
+
+    const part = parts[currentPart];
+
+    buttons.forEach((button, index) => {
+
+        button.innerText =
+            `${index + 1}️⃣ ${part.choices[index]}`;
+
+    });
+
+    document.getElementById("choices").style.display =
+        "flex";
+}
+
+
+function choose(event, index) {
+
+    event.stopPropagation();
+
+    const part = parts[currentPart];
+
+    if (index === part.correct) {
+
+        currentPart++;
+
+        if (currentPart < parts.length) {
+
+            showPart();
+
+        } else {
+
+            showEnding();
+        }
+
+    } else {
+
+        showDeath(part, index);
+    }
+}
+
+
+function showDeath(part, index) {
+
+    document.getElementById("storyBox").style.display =
+        "none";
+
+    document.getElementById("choices").style.display =
+        "none";
+
+    document.getElementById("tapText").style.display =
+        "none";
+
+    document.getElementById("partTitle").innerText =
+        "GAME OVER";
+
+    document.getElementById("death").style.display =
+        "block";
+
+    deathLines = part.deaths;
+    deathLine = 0;
+
+    document.getElementById("deathText").innerText =
+        deathLines[0];
+
+    document.getElementById("deathCause").innerText =
+        part.deathCauses[index];
+
+    document.getElementById("deathTap").style.display =
+        "block";
+}
+
+
+function nextDeathLine() {
+
+    if (deathLine < deathLines.length - 1) {
+
+        deathLine++;
+
+        const text =
+            document.getElementById("deathText");
+
+        text.classList.remove("appear");
+
+        void text.offsetWidth;
+
+        text.innerText =
+            deathLines[deathLine];
+
+        text.classList.add("appear");
+
+    } else {
+
+        document.getElementById("deathTap").innerText =
+            "TAP TO RESTART ↻";
+
+        document.getElementById("deathTap").onclick =
+            restart;
+    }
+}
+
+
+function showEnding() {
+
+    document.getElementById("storyBox").style.display =
+        "none";
+
+    document.getElementById("choices").style.display =
+        "none";
+
+    document.getElementById("tapText").style.display =
+        "none";
+
+    document.getElementById("death").style.display =
+        "none";
+
+    document.getElementById("partTitle").innerText =
+        "ENDING";
+
+    document.getElementById("ending").style.display =
+        "block";
+
+    endingLine = 0;
+
+    document.getElementById("endingText").innerText =
+        endingLines[0];
+
+    document.getElementById("endingTap").style.display =
+        "block";
+}
+
+
+function nextEndingLine() {
+
+    if (endingLine < endingLines.length - 1) {
+
+        endingLine++;
+
+        const text =
+            document.getElementById("endingText");
+
+        text.classList.remove("appear");
+
+        void text.offsetWidth;
+
+        text.innerText =
+            endingLines[endingLine];
+
+        text.classList.add("appear");
+
+    } else {
+
+        document.getElementById("endingTap").innerText =
+            "STORY COMPLETE ✓";
+
+        document.getElementById("endingTap").onclick =
+            null;
+    }
+}
+
+
+function restart() {
+
+    currentPart = 0;
+    currentLine = 0;
+
+    document.getElementById("death").style.display =
+        "none";
+
+    document.getElementById("ending").style.display =
+        "none";
+
+    document.getElementById("storyBox").style.display =
+        "flex";
+
+    showPart();
+}
+
+
+function goHome() {
+
+    window.location.href = "index.html";
+}
+
+
+showPart();
+
+</script>
+
+</body>
+</html>
