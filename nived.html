@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIVED C — The Girl in Room 13</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.game {
+    width: 100%;
+    max-width: 650px;
+    min-height: 600px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    text-align: center;
+}
+
+.top img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #777;
+}
+
+h1 {
+    margin: 10px 0 3px;
+    font-size: 28px;
+}
+
+.nickname {
+    color: #999;
+    font-size: 15px;
+}
+
+.part {
+    margin-top: 25px;
+    color: #777;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.title {
+    font-size: 25px;
+    margin: 8px 0 15px;
+}
+
+.story-box {
+    flex: 1;
+    min-height: 300px;
+    cursor: pointer;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.story-line {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #eee;
+    text-align: center;
+    animation: appear 0.45s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tap {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-top: 25px;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.choices {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    animation: appear 0.5s ease;
+}
+
+.choice,
+.action {
+    width: 100%;
+    padding: 16px;
+    background: #1b1b1b;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.choice:hover,
+.action:hover {
+    background: #292929;
+}
+
+.home {
+    margin-top: 12px;
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    color: #777;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.death,
+.ending {
+    text-align: center;
+    animation: appear 0.5s ease;
+}
+
+.death h2 {
+    color: #ff4444;
+    font-size: 32px;
+}
+
+.ending h2 {
+    font-size: 32px;
+}
+
+.death p,
+.ending p {
+    color: #ccc;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+.cause {
+    margin: 20px 0;
+    padding: 14px;
+    border: 1px solid #633;
+    border-radius: 10px;
+    color: #ff8888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game" id="game"></div>
+
+<script>
+
+const parts = [
+
+{
+    title: "THE GIRL",
+
+    lines: [
+        "Nived is leaving college late at night.",
+        "The corridors are almost completely empty.",
+        "As he walks past Room 13, he notices a girl standing alone.",
+        "She looks directly at him.",
+        "\"Nived... right?\"",
+        "Nived stops.",
+        "He has never seen her before.",
+        "She smiles.",
+        "\"I need your help.\""
+    ],
+
+    choices: [
+        {
+            text: "Follow her immediately",
+
+            death: [
+                "Nived follows the girl without asking any questions.",
+                "She leads him into an empty classroom.",
+                "The door suddenly locks.",
+                "Nived realizes too late that it was a trap."
+            ],
+
+            cause: "Cause of death: Fatal trap."
+        },
+
+        {
+            text: "Ignore her",
+
+            death: [
+                "Nived ignores the girl and continues walking.",
+                "He enters the restricted block alone.",
+                "The security doors suddenly lock.",
+                "There is no way out."
+            ],
+
+            cause: "Cause of death: Fatal security trap."
+        },
+
+        {
+            text: "Talk to her and find out what she knows",
+
+            next: 1
+        }
+    ]
+},
+
+{
+    title: "THE LIE",
+
+    lines: [
+        "The girl tells Nived that someone is trapped inside the old college block.",
+        "Nived listens carefully.",
+        "But something doesn't add up.",
+        "She keeps changing parts of her story.",
+        "Nived notices every little detail.",
+        "The girl suddenly asks:",
+        "\"Do you trust me?\""
+    ],
+
+    choices: [
+        {
+            text: "Trust everything she says",
+
+            death: [
+                "Nived decides to trust her completely.",
+                "She leads him deeper into the building.",
+                "The corridor suddenly disappears behind him.",
+                "He realizes he has been manipulated."
+            ],
+
+            cause: "Cause of death: Fatal trap."
+        },
+
+        {
+            text: "Leave immediately",
+
+            death: [
+                "Nived turns around and tries to leave.",
+                "The corridor doors slam shut.",
+                "The walls begin closing around him."
+            ],
+
+            cause: "Cause of death: Crushing injuries."
+        },
+
+        {
+            text: "Use his social skills to make her reveal the truth",
+
+            next: 2
+        }
+    ]
+},
+
+{
+    title: "THE PHONE",
+
+    lines: [
+        "Nived's questions slowly break down her story.",
+        "She finally admits that she knows more than she said.",
+        "Then she gives Nived an old phone.",
+        "There is only one recording on it.",
+        "Nived presses play.",
+        "A strange voice says:",
+        "\"Don't let her leave the building.\"",
+        "Nived slowly looks at the girl.",
+        "She looks nervous."
+    ],
+
+    choices: [
+        {
+            text: "Destroy the phone",
+
+            death: [
+                "Nived smashes the phone.",
+                "Every light in the corridor turns red.",
+                "A security system activates.",
+                "There is nowhere to escape."
+            ],
+
+            cause: "Cause of death: Security system attack."
+        },
+
+        {
+            text: "Call the police",
+
+            death: [
+                "Nived calls the police.",
+                "The phone signal is not connected to the outside world.",
+                "Instead, the call alerts something inside the building.",
+                "The lights go out."
+            ],
+
+            cause: "Cause of death: Fatal attack."
+        },
+
+        {
+            text: "Listen to the final recording",
+
+            next: 3
+        }
+    ]
+},
+
+{
+    title: "THE BETRAYAL",
+
+    lines: [
+        "The recording reveals the truth.",
+        "Nived wasn't brought here by accident.",
+        "The girl brought him to the building intentionally.",
+        "Suddenly, every door in the corridor locks.",
+        "Nived looks at her.",
+        "She looks down.",
+        "\"I'm sorry.\"",
+        "Nived smiles.",
+        "\"You should probably explain.\""
+    ],
+
+    choices: [
+        {
+            text: "Try to charm her",
+
+            death: [
+                "Nived tries to use his famous charm.",
+                "For the first time, it doesn't work.",
+                "The girl activates the trap.",
+                "Nived is caught completely off guard."
+            ],
+
+            cause: "Cause of death: Fatal trap."
+        },
+
+        {
+            text: "Attack immediately",
+
+            death: [
+                "Nived attacks without asking questions.",
+                "The floor suddenly opens beneath him.",
+                "He falls into the darkness."
+            ],
+
+            cause: "Cause of death: Fatal fall."
+        },
+
+        {
+            text: "Talk to her and discover why she brought him",
+
+            next: 4
+        }
+    ]
+},
+
+{
+    title: "THE REAL TARGET",
+
+    lines: [
+        "The girl finally tells Nived the truth.",
+        "\"You weren't chosen because you were strong.\"",
+        "Nived looks confused.",
+        "\"Then why me?\"",
+        "She answers:",
+        "\"Because you're the only person I thought could survive the test.\"",
+        "She points toward a hidden exit.",
+        "\"We both need to get out.\""
+    ],
+
+    choices: [
+        {
+            text: "Leave her behind",
+
+            death: [
+                "Nived runs toward the exit alone.",
+                "The door opens.",
+                "But it isn't the real exit.",
+                "The door locks behind him."
+            ],
+
+            cause: "Cause of death: Entrapment."
+        },
+
+        {
+            text: "Force her to go first",
+
+            death: [
+                "Nived forces the girl through the exit first.",
+                "The door begins closing.",
+                "Nived tries to follow.",
+                "The door shuts before he can escape."
+            ],
+
+            cause: "Cause of death: Entrapment."
+        },
+
+        {
+            text: "Trust her",
+
+            ending: true
+        }
+    ]
+}
+
+];
+
+
+let currentPart = 0;
+let currentLine = 0;
+
+
+function showPart() {
+
+    currentLine = 0;
+
+    const part = parts[currentPart];
+
+    document.getElementById("game").innerHTML = `
+
+        <div class="top">
+            <img src="nived.jpg" alt="NIVED C">
+            <h1>NIVED C</h1>
+            <div class="nickname">LADY MAGNET</div>
+        </div>
+
+        <div class="part">
+            PART ${currentPart + 1} / ${parts.length}
+        </div>
+
+        <div class="title">
+            ${part.title}
+        </div>
+
+        <div class="story-box" onclick="nextLine()">
+
+            <div class="story-line" id="storyLine">
+                ${part.lines[0]}
+            </div>
+
+            <div class="tap" id="tap">
+                TAP TO CONTINUE ▶
+            </div>
+
+        </div>
+
+        <div class="choices" id="choices">
+
+            ${part.choices.map((choice, index) => `
+                <button class="choice" onclick="choose(event, ${index})">
+                    ${index + 1}. ${choice.text}
+                </button>
+            `).join("")}
+
+        </div>
+
+        <button class="home" onclick="goHome()">
+            ← Character Select
+        </button>
+    `;
+}
+
+
+function nextLine() {
+
+    const part = parts[currentPart];
+
+    if (currentLine >= part.lines.length - 1) {
+
+        document.getElementById("tap").style.display = "none";
+        document.getElementById("choices").style.display = "flex";
+
+        return;
+    }
+
+    currentLine++;
+
+    const line = document.getElementById("storyLine");
+
+    line.style.animation = "none";
+
+    void line.offsetWidth;
+
+    line.style.animation = "appear 0.45s ease";
+
+    line.innerHTML = part.lines[currentLine];
+
+    if (currentLine === part.lines.length - 1) {
+        document.getElementById("tap").innerHTML =
+            "TAP TO REVEAL CHOICES ▼";
+    }
+}
+
+
+function choose(event, index) {
+
+    event.stopPropagation();
+
+    const choice = parts[currentPart].choices[index];
+
+    if (choice.death) {
+        showDeath(choice.death, choice.cause);
+        return;
+    }
+
+    if (choice.ending) {
+        showEnding();
+        return;
+    }
+
+    currentPart = choice.next;
+
+    showPart();
+}
+
+
+function showDeath(lines, cause) {
+
+    document.getElementById("game").innerHTML = `
+
+        <div class="death">
+
+            <div class="top">
+                <img src="nived.jpg" alt="NIVED C">
+                <h1>NIVED C</h1>
+                <div class="nickname">LADY MAGNET</div>
+            </div>
+
+            <h2>☠ YOU DIED</h2>
+
+            <div class="story-box" onclick="nextDeathLine()">
+
+                <div class="story-line" id="deathLine">
+                    ${lines[0]}
+                </div>
+
+                <div class="tap" id="deathTap">
+                    TAP TO CONTINUE ▶
+                </div>
+
+            </div>
+
+            <div id="deathCause" style="display:none">
+
+                <div class="cause">
+                    ${cause}
+                </div>
+
+                <button class="action" onclick="restart()">
+                    ↻ Restart Story
+                </button>
+
+                <button class="action" onclick="goHome()">
+                    ← Character Select
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    window.deathLines = lines;
+    window.deathIndex = 0;
+}
+
+
+function nextDeathLine() {
+
+    if (window.deathIndex >= window.deathLines.length - 1) {
+
+        document.getElementById("deathTap").style.display = "none";
+        document.getElementById("deathCause").style.display = "block";
+
+        return;
+    }
+
+    window.deathIndex++;
+
+    const line = document.getElementById("deathLine");
+
+    line.style.animation = "none";
+
+    void line.offsetWidth;
+
+    line.style.animation = "appear 0.45s ease";
+
+    line.innerHTML = window.deathLines[window.deathIndex];
+}
+
+
+function showEnding() {
+
+    const lines = [
+        "Nived and the girl run through the final corridor.",
+        "The doors slam shut behind them.",
+        "They escape just before the entire building goes dark.",
+        "Outside, Nived looks at her.",
+        "\"So... what's your name?\"",
+        "She laughs.",
+        "\"You really don't remember me?\"",
+        "Nived freezes.",
+        "She walks away.",
+        "Then she turns around.",
+        "\"You were never the target.\"",
+        "The lights of the college suddenly turn off.",
+        "Nived looks back.",
+        "\"Then who was?\"",
+        "TO BE CONTINUED..."
+    ];
+
+    let index = 0;
+
+    document.getElementById("game").innerHTML = `
+
+        <div class="ending">
+
+            <div class="top">
+                <img src="nived.jpg" alt="NIVED C">
+                <h1>NIVED C</h1>
+                <div class="nickname">LADY MAGNET</div>
+            </div>
+
+            <h2>🏆 SURVIVOR</h2>
+
+            <div class="story-box" onclick="nextEndingLine()">
+
+                <div class="story-line" id="endingLine">
+                    ${lines[0]}
+                </div>
+
+                <div class="tap" id="endingTap">
+                    TAP TO CONTINUE ▶
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    window.endingLines = lines;
+    window.endingIndex = index;
+}
+
+
+function nextEndingLine() {
+
+    if (window.endingIndex >= window.endingLines.length - 1) {
+
+        document.getElementById("endingTap").style.display = "none";
+
+        document.getElementById("endingLine").innerHTML =
+            "— THE END —<br><br>" +
+            "<button class='action' onclick='restart()'>↻ Play Again</button>" +
+            "<button class='action' onclick='goHome()'>← Character Select</button>";
+
+        return;
+    }
+
+    window.endingIndex++;
+
+    const line = document.getElementById("endingLine");
+
+    line.style.animation = "none";
+
+    void line.offsetWidth;
+
+    line.style.animation = "appear 0.45s ease";
+
+    line.innerHTML = window.endingLines[window.endingIndex];
+}
+
+
+function restart() {
+    currentPart = 0;
+    currentLine = 0;
+    showPart();
+}
+
+
+function goHome() {
+    window.location.href = "index.html";
+}
+
+
+showPart();
+
+</script>
+
+</body>
+</html>
